@@ -1,3 +1,5 @@
 import Navbar from "./navbar"
+import Modal from "./modal"
+import Decklist from "./decklist"
 
-export {Navbar}
+export {Navbar, Modal, Decklist}

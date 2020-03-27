@@ -16,12 +16,16 @@ export function getCard (query){
             console.log(res.data.cards)
             //filter the data by assigning it's name to a key in an object and the response object as value of the key
             let filtered={};
-            console.log(res.data.cards)
+            
             if(res.data.cards.length===0){
-                filtered = {Error: {name:"No Cards Found", imageUrl:Erasure}};
+                filtered = [{name:"No Cards Found", imageUrl:Erasure}];
             }else{
                 res.data.cards.forEach((card)=>{
+                    //Look in the filtered object for the card name key, if undefined save as the card with matching key
                     if(filtered[card.name]===undefined){
+                        filtered[card.name] = card;
+                    //if card has no image and the current card from the response has an image save the current card.
+                    }else if(filtered[card.name]["imageUrl"]===undefined && card.imageUrl){
                         filtered[card.name] = card;
                     }
                 });

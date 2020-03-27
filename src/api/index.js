@@ -6,4 +6,4 @@ const api = axios.create({
 
 export const fetchCard = payload => api.post("/getCard", payload).then((response)=>{console.log("Server Response", response); return response}).catch((error)=>console.log(error))
 
-export const login = payload => api.post("/getCard", payload).then(response=>console.log("response"))
+export const login = payload => api.post("/login", payload).then(response=>console.log("response"))

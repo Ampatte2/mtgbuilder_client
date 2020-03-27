@@ -4,6 +4,8 @@ import {getCard} from "../store/actions";
 import {connect} from "react-redux";
 import React, { Component } from 'react'
 import Loader from "react-loader";
+import {Modal, Decklist} from "../components";
+
 
 class home extends Component {
     constructor(props){
@@ -47,34 +49,48 @@ class home extends Component {
 
             {Object.keys(dis).length> 0 ? Object.values(dis).map((item, index)=>{
                         let typeDescription;
-                        if(item.imageUrl){
+                        if(item["name"]==="No Cards Found"){
+                            return <>
+                                        <h1 key={index}>{item["name"]}</h1>
+                                        <img src={item.imageUrl} alt={item["name"]} width="250px" height="250px"/>
+                                    </>
+                        }
+                        else if(item.imageUrl){
                             if(item["types"][0]==="Creature"){
                                 typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
+                            }else if (item["types"][0]==="Planeswalker"){
+                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
                             }
                             return <>
                                     <h1 key={index}>{item["name"]}</h1>
-                                    <img src={item.imageUrl} alt={item["name"]}/>
-                                    <h3>{item["manaCost"]}</h3>
+                                    <Modal item={item}/>
+                                    <h3>CMC {item["cmc"]}</h3>
+                                    {typeDescription}
                                     <h3>{item["type"]}</h3>
                                     <h3>{item["text"]}</h3>
-                                    {typeDescription}
+                                    
                                     </>
                         }else{
                             if(item["types"][0]==="Creature"){
                                 typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
+                            }else if (item["types"][0]==="Planeswalker"){
+                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
                             }
                             return <>
                             <h1 key={index}>{item["name"]}</h1>
-                            <h3>{item["manaCost"]}</h3>
+                            <Modal item={item}/>
+                            <h3>CMC {item["cmc"]}</h3>
+                            {typeDescription}
                             <h3>{item["type"]}</h3>
                             <h3>{item["text"]}</h3>
-                            {typeDescription}
+                            
                             
                             </>
                         }
                     }
         
             ): <h1>Search For a Card</h1>}
+            <Decklist></Decklist>
         </>
         )
     }
