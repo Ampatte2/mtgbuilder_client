@@ -2,16 +2,36 @@ import styled from "styled-components"
 import {device} from "./device"
 
 const Decklist = styled.div`
-    position: absolute;
-    top:0;
+    position: fixed;
+    top:25vh;
     right:0;
     height:100vh;
-    width:10vw;
-    background-color:red;
+    width:15vw;
+    background-color:lightblue;
+`
+const DeckSelect = styled.form`
+    position:fixed;
+    top:20vh;
+    right:0;
+    height:15vh;
+    width:15vw;
+    background-color:blue;
+`
+const DeckSelectDrop = styled.div`
+    position:fixed;
+    top:22vh;
+    right:0;
+    height:15vh;
+    background-color:white;
+    width:15vw;
+    z-index:1;
+    overflow:scroll;
 `
 
 const Styled = {
     Decklist,
+    DeckSelect,
+    DeckSelectDrop
 }
 
 export default Styled

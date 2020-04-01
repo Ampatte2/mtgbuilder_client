@@ -1,10 +1,10 @@
 
 
-import {getCard} from "../store/actions";
+import {getCard, myCard} from "../store/actions";
 import {connect} from "react-redux";
 import React, { Component } from 'react'
 import Loader from "react-loader";
-import {Modal, Decklist} from "../components";
+import {Decklist, CardDisplay} from "../components";
 
 
 class home extends Component {
@@ -23,12 +23,16 @@ class home extends Component {
 
     handleSubmit= (e) =>{
         e.preventDefault();
+        
         this.props.getCard(this.state)
     }
 
-    render() {
-        let dis = this.props.cardList
+    addMyCard = (card) =>{
+        this.props.myCard(card)
+    }
 
+    render() {
+        
         return (
         <>
             <form name="search-form"  onSubmit={e=>this.handleSubmit(e)}>
@@ -46,50 +50,8 @@ class home extends Component {
             {/* Look at props cardlist being passed down, if empty show alternate text 
                 if not empty print only cards that have an image and are the original printing of the card
             */}
+            <CardDisplay cardList={this.props.cardList} addMyCard={this.addMyCard} view={"Search For a Card"}></CardDisplay>
 
-            {Object.keys(dis).length> 0 ? Object.values(dis).map((item, index)=>{
-                        let typeDescription;
-                        if(item["name"]==="No Cards Found"){
-                            return <>
-                                        <h1 key={index}>{item["name"]}</h1>
-                                        <img src={item.imageUrl} alt={item["name"]} width="250px" height="250px"/>
-                                    </>
-                        }
-                        else if(item.imageUrl){
-                            if(item["types"][0]==="Creature"){
-                                typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
-                            }else if (item["types"][0]==="Planeswalker"){
-                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
-                            }
-                            return <>
-                                    <h1 key={index}>{item["name"]}</h1>
-                                    <Modal item={item}/>
-                                    <h3>CMC {item["cmc"]}</h3>
-                                    {typeDescription}
-                                    <h3>{item["type"]}</h3>
-                                    <h3>{item["text"]}</h3>
-                                    
-                                    </>
-                        }else{
-                            if(item["types"][0]==="Creature"){
-                                typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
-                            }else if (item["types"][0]==="Planeswalker"){
-                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
-                            }
-                            return <>
-                            <h1 key={index}>{item["name"]}</h1>
-                            <Modal item={item}/>
-                            <h3>CMC {item["cmc"]}</h3>
-                            {typeDescription}
-                            <h3>{item["type"]}</h3>
-                            <h3>{item["text"]}</h3>
-                            
-                            
-                            </>
-                        }
-                    }
-        
-            ): <h1>Search For a Card</h1>}
             <Decklist></Decklist>
         </>
         )
@@ -98,12 +60,17 @@ class home extends Component {
 
 const mapStateToProps = (state) =>{
     const {isLoaded} = state;
-    const {error} = state;
     const {cardList} = state;
-    return {isLoaded, error, cardList}
+    return {isLoaded, cardList}
 
 }
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        getCard: (item)=>{dispatch(getCard(item))},
+        myCard: (item)=>{dispatch(myCard(item))}
+    }
+}
 
-export default connect(mapStateToProps, {getCard})(home)
+export default connect(mapStateToProps, mapDispatchToProps)(home)
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux";
-import {authenticate} from "../store/actions"
+import {} from "../store/actions"
+import {Decklist, CardDisplay} from "../components"
 
 class account extends Component {
     constructor(props){
@@ -9,7 +10,6 @@ class account extends Component {
     }
 
     handleSubmit(){
-        this.props.authenticate({payload: "hello"})
         console.log("handleSubmit")
     }
 
@@ -18,18 +18,25 @@ class account extends Component {
             <div>
 
                 <h1>Decks and Cards</h1>
-
+                
                 <h2>Cards</h2>
-
+                <CardDisplay cardList={this.props.myCards} view={"No Saved Cards"}></CardDisplay>
                 <h2>Decks</h2>
+                {this.props.allDecks.map((item, index)=>{
+                    return <h3 key="index">{item}</h3>
+                })}
+                <Decklist></Decklist>
                 <button type="button" onClick={this.handleSubmit}>Submit</button>
             </div>
         )
     }
 }
 const mapStateToProps= (state)=>{
-    const {cardList} = state
-    return {cardList}
+    const {cardList} = state;
+    const {currentDeck} = state;
+    const {myCards} = state;
+    const {allDecks} = state;
+    return {cardList, currentDeck, myCards, allDecks}
 }
 
-export default connect(mapStateToProps,{authenticate})(account)
+export default connect(mapStateToProps,{})(account)
