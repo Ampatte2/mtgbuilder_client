@@ -22,9 +22,10 @@ class account extends Component {
                 <h2>Cards</h2>
                 <CardDisplay cardList={this.props.myCards} view={"No Saved Cards"}></CardDisplay>
                 <h2>Decks</h2>
-                {this.props.allDecks.map((item, index)=>{
+                {this.props.myDecks.length>0 && this.props.myDecks.map((item, index)=>{
                     return <h3 key="index">{item}</h3>
                 })}
+                {this.props.myDecks.length==0 && <h3>No Saved Decks</h3>}
                 <Decklist></Decklist>
                 <button type="button" onClick={this.handleSubmit}>Submit</button>
             </div>
@@ -35,8 +36,8 @@ const mapStateToProps= (state)=>{
     const {cardList} = state;
     const {currentDeck} = state;
     const {myCards} = state;
-    const {allDecks} = state;
-    return {cardList, currentDeck, myCards, allDecks}
+    const {myDecks} = state;
+    return {cardList, currentDeck, myCards, myDecks}
 }
 
 export default connect(mapStateToProps,{})(account)

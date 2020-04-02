@@ -1,4 +1,4 @@
-import {fetchCard, getLogin, getDeckList, saveToList, addToList, getRegister} from "../../api"
+import {fetchCard, getLogin, getDeckList, saveToList, addToList, getRegister, getUser} from "../../api"
 import Erasure from "../../images/Erasure.jpg"
 
 export const GET_CARD = "GET_CARD"
@@ -7,18 +7,19 @@ export const IS_LOADED = "IS_LOADED"
 export const LOGIN = "LOGIN"
 export const GET_DECK = "GET_DECK"
 export const ADD_CARD = "ADD_CARD"
-export const SAVE_DECK = "SAVE_DECK"
-export const INC_CARD = "INC_CARD"
+export const MODIFY_DECK = "MODIFY_DECK"
 export const MY_CARD = "MY_CARD"
 export const REGISTER = "REGISTER"
 export const ERROR = "ERROR"
+export const AUTH = "AUTH"
+
 
 export function addCard(card){
     return {type: ADD_CARD, card}
 }
 
-export function incCard(value){
-    return {type: INC_CARD, value}
+export function modifyDeck(modifier, index){
+    return {type: MODIFY_DECK, modifier, index}
 }
 
 export function myCard(card){
@@ -36,25 +37,49 @@ export function isLoaded(value){
 export function isError(value){
     return {type:ERROR, value}
 }
+export function isAuth(value){
+    return {type:AUTH, value}
+}
 
-export function login(user){
+export function login(value){
     return function(dispatch){
-        console.log(user)
         dispatch(isLoaded(false))
-        return getLogin(user).then(res=>{
-            console.log(res)
+        return getLogin(value).then(res=>{
+            if(res.data.token){
+                localStorage.setItem("token",res.data.token)
+                
+                dispatch(user(res.data.token))
+            }
             dispatch(isLoaded(true))
         })
         
     }
 }
-
-export function register(user){
+export function user(token){
     return function(dispatch){
-        console.log(user);
         dispatch(isLoaded(false))
-        return getRegister(user).then(res=>{
-            console.log(res)
+        return getUser(token).then(res=>{
+            dispatch(isAuth(true))
+            dispatch(isLoaded(true))
+        })
+    }
+}
+
+export function register(value){
+    return function(dispatch){
+        
+        dispatch(isLoaded(false))
+
+        return getRegister(value).then(res=>{
+            console.log("register", res.data.token)
+            const token = res.data.token
+            if(res.data.error){
+                
+            }else{
+                localStorage.setItem("token",res.data.token)
+                dispatch(user(token))
+            }
+            
             dispatch(isLoaded(true))
         }) 
         
@@ -68,11 +93,19 @@ export function add(card){
     }
 }
 
-export function saveDeck(deck){
+export function saveDeck(deckName, deck){
+
+    const payload = {newDeck: {name:deckName, decklist: deck.decklist}, token:localStorage.getItem("token")}
+    
     return function(dispatch){
         dispatch(isLoaded(false))
-        return saveToList
-        dispatch(isLoaded(true))
+        console.log("dispatch save")
+        return saveToList(payload).then((res)=>{
+            console.log(res)
+            dispatch(isLoaded(true))
+
+        })
+        
     }
     
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {ModalLogin} from "./index"
 import {connect} from "react-redux";
-import {login, register} from "../store/actions";
+import {login, register, isAuth} from "../store/actions";
 import Loader from "react-loader";
 
 class UserLogin extends Component {
@@ -12,6 +12,7 @@ class UserLogin extends Component {
         }
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     register(submit){
@@ -27,21 +28,28 @@ class UserLogin extends Component {
     login(submit){
         this.props.login(submit);
     }
+
+    logout(){
+        localStorage.removeItem("token")
+        this.props.isAuth(false);
+    }
+
     render() {
         return (
             <div>
                 <Loader loaded={this.props.isLoaded}></Loader>
-                
-                <ModalLogin 
+                {!this.props.auth && 
+                <>
+                    <ModalLogin 
                     title="Login" 
                     info={[{name:"Email", type:"email"},
                     {name:"Password", type:"password"}]}
                     fun={this.login}
                     error={this.props.error}
                     isLoaded={this.props.isLoaded}>
-                </ModalLogin>
+                    </ModalLogin>
 
-                <ModalLogin
+                    <ModalLogin
                     title="Register"
                     info={[{name:"Email", type:"email"},
                     {name:"Password", type:"password"},
@@ -50,7 +58,11 @@ class UserLogin extends Component {
                     passError={this.state.passError}
                     error={this.props.error}
                     isLoaded={this.props.isLoaded}>
-                </ModalLogin>
+                    </ModalLogin>
+                </>}
+
+                {this.props.auth &&<button onClick={()=>this.logout()}>Logout</button>}
+                
 
             </div>
         )
@@ -59,12 +71,14 @@ class UserLogin extends Component {
 const mapStateToProps = (state) =>{
     const {isLoaded} = state;
     const {error} = state;
-    return {error, isLoaded}
+    const {auth} = state;
+    return {error, isLoaded, auth}
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
         login: (user)=>{dispatch(login(user))},
-        register: (user)=>{dispatch(register(user))}
+        register: (user)=>{dispatch(register(user))},
+        isAuth: (value)=>{dispatch(isAuth(value))}
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

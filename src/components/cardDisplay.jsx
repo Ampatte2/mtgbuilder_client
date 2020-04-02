@@ -51,7 +51,7 @@ export default function CardDisplay(props) {
                         }
                     }
         
-            ): <h1>{props.view}</h1>}
+            ): <h3>{props.view}</h3>}
         </>
     )
 }

@@ -8,7 +8,8 @@ class DropDown extends Component {
         super(props)
         this.state={
             display:"none",
-            deckName:""
+            deckName:"",
+            selectError:false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -48,8 +49,19 @@ class DropDown extends Component {
         this.setState({deckName: item})
     }
 
-    handleSubmit(item){
-        console.log(item)
+    //Handles the saving of decks, displays messages based on no name or not authorized
+    handleSubmit(e){
+        e.preventDefault();
+        if(this.state.deckName===""){
+            this.setState({selectError: "All Decks Must Have a Name"})
+        }else if(this.props.auth==false){
+            this.setState({selectError:"Login To Save Deck"})
+        }else if(this.props.currentDeck.decklist.length==0){
+            this.setState({selectError:"Decklist Cannot Be Empty"})
+        }else{
+            this.setState({selectError:false})
+            this.props.saveDeck(this.state.deckName, this.props.currentDeck)
+        }
     }
 
     handleClickOutside(event){
@@ -62,10 +74,12 @@ class DropDown extends Component {
         return (
             <>
             <Styled.DeckSelect>
-            <input type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></input><button type="submit" onSubmit={()=>this.handleSubmit(this.state.deckName)}>Save</button>
+            <input type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></input>
+            <button type="button" onClick={e=>this.handleSubmit(e)}>Save</button>
             </Styled.DeckSelect>
+            {this.state.selectError && <Styled.SelectError>{this.state.selectError}</Styled.SelectError>}
             <Styled.DeckSelectDrop style={{display:this.state.display}} ref={this.setWrapperRef}>
-                {this.props.allDecks.map((item, index)=>{
+                {this.props.myDecks.map((item, index)=>{
                     return <p onClick={()=>this.handleClick(item)} key={index}>{item}</p>
                 })}
             </Styled.DeckSelectDrop>
@@ -74,13 +88,14 @@ class DropDown extends Component {
     }
 }
 const mapStateToProps = (state) =>{
-    const {allDecks} = state;
+    const {myDecks} = state;
     const {currentDeck} = state;
-    return {allDecks, currentDeck}
+    const {auth} = state;
+    return {myDecks, currentDeck, auth}
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        saveDeck: ()=>{dispatch(saveDeck())},
+        saveDeck: (deckName, deck)=>{dispatch(saveDeck(deckName, deck))},
         getDeck: ()=>{dispatch(getDeck())}
     }
 }

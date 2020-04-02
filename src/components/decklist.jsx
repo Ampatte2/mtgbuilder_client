@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Styled from "../style/styled"
 import {connect} from "react-redux";
-import {addCard} from "../store/actions"
+import {addCard, modifyDeck} from "../store/actions"
 import {DropDown} from "./index"
 
 class Decklist extends Component {
@@ -10,11 +10,28 @@ class Decklist extends Component {
         this.handleDrop= this.handleDrop.bind(this);
         this.handleDragEnter= this.handleDragEnter.bind(this);
         this.handleDragLeave = this.handleDragLeave.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         
     }
     handleDrop = e =>{
+
         const cardItem = JSON.parse(e.dataTransfer.getData("text"))
-        this.props.addCard(cardItem)
+
+        //remove unneccessary data from 
+        const filteredItem = {
+            imageUrl: cardItem.imageUrl,
+            name: cardItem.name,
+            cmc: cardItem.cmc,
+            types: cardItem.types,
+            type:cardItem.type,
+            text:cardItem.text,
+            loyalty:cardItem.loyalty,
+            toughness:cardItem.toughness,
+            power:cardItem.power,
+            quantity:1
+        }
+
+        this.props.addCard(filteredItem)
         e.preventDefault()
         e.stopPropagation()
     }
@@ -27,8 +44,16 @@ class Decklist extends Component {
         e.preventDefault()
         e.stopPropagation()
     }
+    handleClick = (item, index, modifier ) =>{
+        if(item.quantity<4 && modifier>0){
+            this.props.modifyDeck(modifier, index)  
+        }else if(modifier<0){
+            this.props.modifyDeck(modifier, index)
+        }
+    }
     
     render() {
+        console.log(this.props.currentDeck)
         return (
             <>
             <DropDown></DropDown>
@@ -36,9 +61,15 @@ class Decklist extends Component {
             onDragLeave={e=>this.handleDragLeave(e)}
             onDropCapture={e=> this.handleDrop(e)} 
             onDragOver={e=>this.handleDragEnter(e)}>
-            <p>{this.props.currentDeck["name"]}</p>
+            
             <div>{this.props.currentDeck.decklist.map((item, index)=>{
-                return <div key={index}>{item.name}</div>
+                
+                return <>
+                            <div key={index}>{item.name}</div>
+                            <div>{item.quantity}</div>
+                            <button onClick={()=>this.handleClick(item, index, 1)}>Add</button>
+                            <button onClick={()=>this.handleClick(item, index, -1)}>Sub</button>
+                        </>
             })}</div>        
             </Styled.Decklist>
             </>
@@ -49,5 +80,11 @@ const mapStateToProps = (state) =>{
     const {currentDeck} = state;
     return {currentDeck}
 }
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        modifyDeck: (modifier, index)=>{dispatch(modifyDeck(modifier, index))},
+        addCard: (card)=>{dispatch(addCard(card))}
+    }
+}
 
-export default connect(mapStateToProps, {addCard})(Decklist)
+export default connect(mapStateToProps, mapDispatchToProps)(Decklist)

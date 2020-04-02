@@ -7,6 +7,7 @@ const Decklist = styled.div`
     right:0;
     height:100vh;
     width:15vw;
+    padding-top:2vh;
     background-color:lightblue;
 `
 const DeckSelect = styled.form`
@@ -27,11 +28,21 @@ const DeckSelectDrop = styled.div`
     z-index:1;
     overflow:scroll;
 `
+const SelectError = styled.div`
+    position:fixed;
+    top:25vh;
+    right:0;
+    height:10vh;
+    width:15vw;
+    z-index:2;
+    color:red;
+`
 
 const Styled = {
     Decklist,
     DeckSelect,
-    DeckSelectDrop
+    DeckSelectDrop,
+    SelectError
 }
 
 export default Styled
