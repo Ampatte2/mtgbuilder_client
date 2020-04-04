@@ -1,4 +1,4 @@
-import {fetchCard, getLogin, getDeckList, saveToList, addToList, getRegister, getUser} from "../../api"
+import {fetchCard, getLogin, getDeckList, saveToList, addToList, getRegister, getUser, saveCard} from "../../api"
 import Erasure from "../../images/Erasure.jpg"
 
 export const GET_CARD = "GET_CARD"
@@ -12,6 +12,8 @@ export const MY_CARD = "MY_CARD"
 export const REGISTER = "REGISTER"
 export const ERROR = "ERROR"
 export const AUTH = "AUTH"
+export const ADD_DECK = "ADD_DECK"
+export const DB_DECK = "DB_DECK"
 
 
 export function addCard(card){
@@ -20,10 +22,6 @@ export function addCard(card){
 
 export function modifyDeck(modifier, index){
     return {type: MODIFY_DECK, modifier, index}
-}
-
-export function myCard(card){
-    return {type: MY_CARD, card}
 }
 
 export function displayCard(cardList){
@@ -39,6 +37,27 @@ export function isError(value){
 }
 export function isAuth(value){
     return {type:AUTH, value}
+}
+
+export function myCard(card){
+    return {type:MY_CARD, card}
+}
+
+export function addDeck(deck){
+    return {type:ADD_DECK, deck}
+}
+export function dbDecks(decks){
+    return {type:DB_DECK, decks}
+}
+
+export function saveMyCard(card){
+    const payload = {card: card, token:localStorage.getItem("token")}
+    return function(dispatch){
+        dispatch(isLoaded(false));
+        return saveCard(payload).then(res=>{
+            dispatch(isLoaded(true))
+        })
+    }
 }
 
 export function login(value){
@@ -59,8 +78,27 @@ export function user(token){
     return function(dispatch){
         dispatch(isLoaded(false))
         return getUser(token).then(res=>{
+            
+            let decks=[];
+            let allDecks=[];
+
+            res.data[0].map(item=>{
+                decks.push(JSON.parse(item.decklist))
+            })
+
+            res.data[1].map(item=>{
+                dispatch(myCard(JSON.parse(item.card)))
+            })
+
+            res.data[2].map(item=>{
+                allDecks.push(JSON.parse(item.decklist))
+            })
+
+            dispatch(dbDecks(allDecks))
+            dispatch(addDeck(decks))
             dispatch(isAuth(true))
             dispatch(isLoaded(true))
+
         })
     }
 }
@@ -71,7 +109,7 @@ export function register(value){
         dispatch(isLoaded(false))
 
         return getRegister(value).then(res=>{
-            console.log("register", res.data.token)
+
             const token = res.data.token
             if(res.data.error){
                 
@@ -99,9 +137,16 @@ export function saveDeck(deckName, deck){
     
     return function(dispatch){
         dispatch(isLoaded(false))
-        console.log("dispatch save")
+        
         return saveToList(payload).then((res)=>{
-            console.log(res)
+            
+            if(res.data.error){
+                alert("Duplicate Deckname")
+            }else{
+                dispatch(addDeck([payload.newDeck]))
+                alert("Decklist Saved")
+            }
+            
             dispatch(isLoaded(true))
 
         })
@@ -125,7 +170,7 @@ export function getCard (query){
         dispatch(isLoaded(false))
 
         return fetchCard(query).then((res)=>{
-            console.log(res.data.cards)
+            
             //filter the data by assigning it's name to a key in an object and the response object as value of the key
             let filtered={};
             

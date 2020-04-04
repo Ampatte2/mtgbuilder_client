@@ -13,6 +13,7 @@ class Decklist extends Component {
         this.handleClick = this.handleClick.bind(this);
         
     }
+
     handleDrop = e =>{
 
         const cardItem = JSON.parse(e.dataTransfer.getData("text"))
@@ -35,6 +36,7 @@ class Decklist extends Component {
         e.preventDefault()
         e.stopPropagation()
     }
+
     handleDragEnter = e =>{
         e.preventDefault()
         e.stopPropagation()
@@ -44,6 +46,7 @@ class Decklist extends Component {
         e.preventDefault()
         e.stopPropagation()
     }
+
     handleClick = (item, index, modifier ) =>{
         if(item.quantity<4 && modifier>0){
             this.props.modifyDeck(modifier, index)  
@@ -53,7 +56,7 @@ class Decklist extends Component {
     }
     
     render() {
-        console.log(this.props.currentDeck)
+        
         return (
             <>
             <DropDown></DropDown>
@@ -76,10 +79,12 @@ class Decklist extends Component {
         )
     }
 }
+
 const mapStateToProps = (state) =>{
     const {currentDeck} = state;
     return {currentDeck}
 }
+
 const mapDispatchToProps = (dispatch)=>{
     return{
         modifyDeck: (modifier, index)=>{dispatch(modifyDeck(modifier, index))},

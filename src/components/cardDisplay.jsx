@@ -2,12 +2,14 @@ import React from 'react'
 import {Modal} from "./index"
 
 export default function CardDisplay(props) {
+    
     const dis = props.cardList
+    
     return (
         <>
             {Object.keys(dis).length> 0 ? Object.values(dis).map((item, index)=>{
                         let typeDescription, addButton;
-                        if(props.addMyCard){
+                        if(props.isAuth){
                             addButton = <button onClick={()=>props.addMyCard(item)}>Add Card To Library</button>
                         }
                         if(item["name"]==="No Cards Found"){

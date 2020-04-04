@@ -1,7 +1,14 @@
 
-import {GET_CARD, DISPLAY_CARD, IS_LOADED, GET_DECK, ADD_CARD, SAVE_DECK, MY_CARD, AUTH, MODIFY_DECK} from "../actions"
+import {GET_CARD, DISPLAY_CARD, IS_LOADED, GET_DECK, ADD_CARD, MY_CARD, AUTH, MODIFY_DECK, ADD_DECK, DB_DECK} from "../actions"
 
-const initialState = {isLoaded:true,error:false, auth:false, cardList:[], currentDeck:{name:"Please Select A Deck", decklist:[]}, myDecks:[], myCards:[], decklists:[]}
+const initialState = {isLoaded:true,
+                        error:false,
+                        auth:false, 
+                        cardList:[], 
+                        currentDeck:{name:"Please Select A Deck", decklist:[]}, 
+                        myDecks:[], 
+                        myCards:[], 
+                        decklists:[]}
 
 const mtgbuilder = (state=initialState, action)=>{
     switch(action.type){
@@ -15,6 +22,8 @@ const mtgbuilder = (state=initialState, action)=>{
             return Object.assign({}, state, {currentDeck: action.deck})
         case ADD_CARD:
             return Object.assign({}, state, {currentDeck: {name: state.currentDeck.name, decklist: [...state.currentDeck.decklist, action.card]}})
+        case ADD_DECK:
+            return Object.assign({}, state, {myDecks:[...state.myDecks, ...action.deck]})
         case MODIFY_DECK:
             return Object.assign({}, state, {
                 currentDeck: {name:state.currentDeck.name, decklist:state.currentDeck.decklist.filter((card, index)=>{
@@ -28,6 +37,8 @@ const mtgbuilder = (state=initialState, action)=>{
                     }
                 })}
             })
+        case DB_DECK:
+            return Object.assign({}, state, {decklists: [...action.decks]})
         case MY_CARD:
             return Object.assign({}, state, {myCards: [...state.myCards, action.card]})
         case AUTH:

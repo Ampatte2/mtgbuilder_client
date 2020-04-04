@@ -6,11 +6,16 @@ import {UserLogin} from "../components/index"
 
 
 class Navbar extends Component {
-    render() {
+
+    componentDidMount(){
         let token = localStorage.getItem("token");
         if(!this.props.auth && token){
             this.props.user(token)
         }
+
+    }
+    render() {
+        
         return (
             <div>
                 <Link to="/">Search For a Card</Link>

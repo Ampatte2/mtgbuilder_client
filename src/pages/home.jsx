@@ -1,6 +1,6 @@
 
 
-import {getCard, myCard} from "../store/actions";
+import {getCard, saveMyCard} from "../store/actions";
 import {connect} from "react-redux";
 import React, { Component } from 'react'
 import Loader from "react-loader";
@@ -28,9 +28,22 @@ class home extends Component {
     }
 
     addMyCard = (card) =>{
-        this.props.myCard(card)
+        const filteredItem = {
+            imageUrl: card.imageUrl,
+            name: card.name,
+            cmc: card.cmc,
+            types: card.types,
+            type:card.type,
+            text:card.text,
+            loyalty:card.loyalty,
+            toughness:card.toughness,
+            power:card.power,
+            quantity:1
+        }
+        this.props.saveMyCard(filteredItem)
     }
-
+    
+    
     render() {
         
         return (
@@ -50,7 +63,7 @@ class home extends Component {
             {/* Look at props cardlist being passed down, if empty show alternate text 
                 if not empty print only cards that have an image and are the original printing of the card
             */}
-            <CardDisplay cardList={this.props.cardList} addMyCard={this.addMyCard} view={"Search For a Card"}></CardDisplay>
+            <CardDisplay cardList={this.props.cardList} addMyCard={this.addMyCard} view={"Search For a Card"} isAuth={this.props.auth}></CardDisplay>
 
             <Decklist></Decklist>
         </>
@@ -61,13 +74,14 @@ class home extends Component {
 const mapStateToProps = (state) =>{
     const {isLoaded} = state;
     const {cardList} = state;
-    return {isLoaded, cardList}
+    const {auth} = state;
+    return {isLoaded, cardList, auth}
 
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
         getCard: (item)=>{dispatch(getCard(item))},
-        myCard: (item)=>{dispatch(myCard(item))}
+        saveMyCard: (item)=>{dispatch(saveMyCard(item))}
     }
 }
 

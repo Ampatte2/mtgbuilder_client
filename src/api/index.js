@@ -10,9 +10,11 @@ export const getLogin = payload => api.post("/login", payload).then(response=>{r
 
 export const getDeckList = payload => api.post("/getDeck", payload).then((response)=>{console.log("getDeck", response)})
 
-export const getUser = payload => api.post("/getUser", {data: payload}).then((response)=>{console.log(response)});
+export const getUser = payload => api.post("/getUser", {data: payload}).then((response)=>{return response});
 
 export const saveToList = payload=> api.post("/saveDeck", payload).then((response)=>{return response})
+
+export const saveCard = payload => api.post("/saveCard", payload).then((response)=>{console.log(response)});
 
 export const addToList = payload => api.post("/addCard", payload).then(response=>console.log("addcard response", response))
 

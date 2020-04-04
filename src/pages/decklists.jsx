@@ -1,24 +1,34 @@
 import React, { Component } from 'react'
 import {connect} from "react-redux";
-import {} from "../store/actions";
+import {saveDeck} from "../store/actions";
+import { Link } from 'react-router-dom';
+
 
 
 class Decklists extends Component {
+    
+
     render() {
+        let dis = this.props.decklists
+
         return (
             <div>
-                
+                {dis.length>0 && dis.map((item, index)=>{                    
+                    return <>
+                    <h3 key={index}>{item.name}</h3>
+                    <Link to={"/viewDeck/" + index + "/decklists"}><img src={item.decklist[0].imageUrl}></img></Link>
+                    
+                    </>
+                })}
             </div>
         )
     }
 }
 
 const mapStateToProps= (state)=>{
-    const {cardList} = state;
-    const {currentDeck} = state;
-    const {myCards} = state;
-    const {myDecks} = state;
-    return {cardList, currentDeck, myCards, myDecks}
+    const {auth} = state;
+    const {decklists} = state;
+    return {auth, decklists}
 }
 
-export default connect(mapStateToProps, {})(Decklists);
+export default connect(mapStateToProps, {saveDeck})(Decklists);
