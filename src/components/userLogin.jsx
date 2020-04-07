@@ -18,7 +18,7 @@ class UserLogin extends Component {
     }
 
     register(submit){
-        console.log("register", submit)
+        
             if(submit["Password"]===submit["Repeat Password"]){
                 this.props.register(submit);
             }else{
@@ -29,7 +29,7 @@ class UserLogin extends Component {
     
     login(submit){
         this.props.login(submit);
-        console.log(localStorage.getItem("state"))
+        
     }
 
     logout(){
@@ -63,7 +63,6 @@ class UserLogin extends Component {
                     {name:"Repeat Password", type:"password"}]}
                     fun={this.register}
                     passError={this.state.passError}
-                    error={this.props.error}
                     isLoaded={this.props.isLoaded}>
                     </ModalLogin>
                 </>}

@@ -7,6 +7,7 @@ import Loader from "react-loader";
 import {Decklist, CardDisplay} from "../components";
 
 
+
 class home extends Component {
     constructor(props){
         super(props);
@@ -27,7 +28,10 @@ class home extends Component {
         this.props.getCard(this.state)
     }
 
-    addMyCard = (card) =>{
+    addMyCard = (card, e) =>{
+        //hides button of AddCard To Library if clicked.
+        e.target.style.visibility = "hidden"
+
         const filteredItem = {
             imageUrl: card.imageUrl,
             name: card.name,
@@ -59,7 +63,6 @@ class home extends Component {
             </form>
 
             <Loader loaded={this.props.isLoaded}/>
-            
             {/* Look at props cardlist being passed down, if empty show alternate text 
                 if not empty print only cards that have an image and are the original printing of the card
             */}

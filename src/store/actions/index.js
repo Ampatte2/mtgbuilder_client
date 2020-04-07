@@ -66,11 +66,17 @@ export function loadDeck(deck){
 }
 
 export function saveMyCard(card){
-    const payload = {card: card, token:localStorage.getItem("token")}
+    const payload = {card: card, token:localStorage.getItem("token")};
+
     return function(dispatch){
         dispatch(isLoaded(false));
         return saveCard(payload).then(res=>{
-            dispatch(myCard(card))
+
+            //only adds if card is not duplicate
+            if(res.data.error){
+                dispatch(myCard(card))
+            }
+            
             dispatch(isLoaded(true))
         })
     }
@@ -94,8 +100,10 @@ export function login(value){
         return getLogin(value).then(res=>{
             if(res.data.token){
                 localStorage.setItem("token",res.data.token)
-                
+                dispatch(isError(false))
                 dispatch(user(res.data.token))
+            }else{
+                dispatch(isError("Invalid Username Or Password"))
             }
             dispatch(isLoaded(true))
         })
@@ -144,9 +152,9 @@ export function getData(){
             let allDecks=[];
             
             res.data.map(item=>{
-                allDecks.push(JSON.parse(item.decklist))
+                allDecks.push((JSON.parse(item.decklist)))
             })
-
+            
             dispatch(dbDecks(allDecks))
             dispatch(isLoaded(true))
         })
@@ -182,7 +190,7 @@ export function add(card){
 }
 
 export function saveDeck(deckName, deck){
-
+    
     const payload = {newDeck: {name:deckName, decklist: deck.decklist}, token:localStorage.getItem("token"), id: deck.id}
     
     return function(dispatch){

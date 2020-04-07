@@ -1,23 +1,36 @@
 import React, { Component } from 'react'
+import cardBack from "../images/cardBack.png"
 
 export default class Modal extends Component {
     constructor(props){
         super(props);
         this.state = {
-            show:false
+            show:false,
+            img: this.props.item["imageUrl"]
         };
         this.showModal = this.showModal.bind(this);
         this.dragId = this.dragId.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this)
         this.setWrapperRef = this.setWrapperRef.bind(this);
+
     }
 
     componentDidMount(){
         document.addEventListener("mousedown", this.handleClickOutside);
+        if(this.state.img===undefined){
+            this.setState({img:cardBack})
+        }
+        
     }
     
     componentWillUnmount(){
         document.addEventListener("mousedown", this.handleClickOutside);
+    }
+    
+    componentDidUpdate(prevProps){
+        if(this.props.item["imageUrl"] !==prevProps.item["imageUrl"]){
+            this.setState({img:this.props.item["imageUrl"]})
+        }
     }
 
     showModal(){
@@ -46,8 +59,8 @@ export default class Modal extends Component {
     render() {
         return (
             <>
-                <img src={this.props.item["imageUrl"]} alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></img>
-                {this.state.show && <img src={this.props.item["imageUrl"]} ref={this.setWrapperRef}></img>}
+                <img src={this.state.img} onError={()=> console.log("there is an error") } alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></img>
+                {this.state.show && <img src={this.state.img} ref={this.setWrapperRef}></img>}
             </>
         )
     }

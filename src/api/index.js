@@ -14,7 +14,7 @@ export const getUser = payload => api.post("/getUser", {data: payload}).then((re
 
 export const saveToList = payload=> api.post("/saveDeck", payload).then((response)=>{return response})
 
-export const saveCard = payload => api.post("/saveCard", payload).then((response)=>{console.log(response)});
+export const saveCard = payload => api.post("/saveCard", payload).then((response)=>{return response});
 
 export const deleteCard = payload => api.post("/deleteCard", payload).then((response)=>{return response});
 

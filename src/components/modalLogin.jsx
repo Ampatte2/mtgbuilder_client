@@ -65,7 +65,8 @@ export default class ModalLogin extends Component {
                         {this.props.info.map((item, index)=>{
                            return <input type={item.type} id={item.name} placeholder={item.name} onChange={(e)=>this.handleChange(e,item.name)}></input>
                         })}
-                        {this.props.passError && <div>Incorrect Username or Password</div>}
+                        {this.props.error && <div>Incorrect Username or Password</div>}
+                        {this.props.passError && <div>Passwords Do Not Match</div>}
                         {this.props.isLoaded &&<button type="submit">{this.props.title}</button>}
                     </form>
                     

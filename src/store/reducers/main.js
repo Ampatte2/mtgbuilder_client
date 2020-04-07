@@ -1,5 +1,5 @@
 
-import {GET_CARD, DISPLAY_CARD, IS_LOADED, LOAD_DECK, ADD_CARD, MY_CARD, AUTH, MODIFY_DECK, ADD_DECK, DB_CARD, DB_DECK, LOGOUT} from "../actions"
+import {GET_CARD, DISPLAY_CARD, IS_LOADED, LOAD_DECK, ADD_CARD, MY_CARD, AUTH, MODIFY_DECK, ADD_DECK, DB_CARD, DB_DECK, LOGOUT, ERROR} from "../actions"
 
 const initialState = {isLoaded:true,
                         error:false,
@@ -47,6 +47,8 @@ const mtgbuilder = (state=initialState, action)=>{
             return Object.assign({}, state, {auth: action.value})
         case LOGOUT:
             return Object.assign({}, state, initialState)
+        case ERROR:
+            return Object.assign({}, state, {error: action.value})
         default:
             return state
     }

@@ -13,7 +13,7 @@ export default function DeckDisplay(props) {
             {dis.length>0 && dis.map((item, index)=>{                    
                     return <>
                     <h3 key={index}>{item.name}</h3>
-                    <Link to={"/viewDeck/" + index + "/" + props.view}><img src={item.decklist[0].imageUrl}></img></Link>
+                    <Link to={"/viewDeck/" + index + "/" + props.view}><img src={item.decklist[0].imageUrl} ></img></Link>
                     
                     </>
                 })}
