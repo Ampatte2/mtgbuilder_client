@@ -4,9 +4,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import store from "./store/store";
+import {saveState} from "./store/localStorage";
 
 
-
+store.subscribe(()=>{
+    saveState(store.getState());
+})
 
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
 

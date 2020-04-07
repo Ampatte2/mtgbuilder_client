@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import {ModalLogin} from "./index"
 import {connect} from "react-redux";
-import {login, register, isAuth} from "../store/actions";
+import {login, logout, register, isAuth, getData} from "../store/actions";
 import Loader from "react-loader";
+
+
 
 class UserLogin extends Component {
     constructor(props){
@@ -27,11 +29,16 @@ class UserLogin extends Component {
     
     login(submit){
         this.props.login(submit);
+        console.log(localStorage.getItem("state"))
     }
 
     logout(){
+        
         localStorage.removeItem("token")
+        this.props.logout();
         this.props.isAuth(false);
+        this.props.getData();
+        
     }
 
     render() {
@@ -78,7 +85,9 @@ const mapDispatchToProps = (dispatch)=>{
     return{
         login: (user)=>{dispatch(login(user))},
         register: (user)=>{dispatch(register(user))},
-        isAuth: (value)=>{dispatch(isAuth(value))}
+        isAuth: (value)=>{dispatch(isAuth(value))},
+        logout: ()=>{dispatch(logout())},
+        getData: ()=>{dispatch(getData())}
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

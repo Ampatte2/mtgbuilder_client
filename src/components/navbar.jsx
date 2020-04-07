@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {user} from "../store/actions";
+import {user, getData} from "../store/actions";
 import {UserLogin} from "../components/index"
 
 
@@ -11,6 +11,9 @@ class Navbar extends Component {
         let token = localStorage.getItem("token");
         if(!this.props.auth && token){
             this.props.user(token)
+        }else{
+            console.log("getData")
+            this.props.getData();
         }
 
     }
@@ -34,5 +37,12 @@ const mapStateToProps= state =>{
     return {auth}
 }
 
-export default connect(mapStateToProps, {user})(Navbar)
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        user: (token)=>{dispatch(user(token))},
+        getData: ()=>{dispatch(getData())}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
 

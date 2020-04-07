@@ -45,8 +45,10 @@ class DropDown extends Component {
     }
 
     handleClick(item){
+        this.props.getDeck({name: item.name})
         //handle click changes the deck
         this.setState({deckName: item.name})
+
     }
 
     //Handles the saving of decks, displays messages based on no name or not authorized
@@ -100,7 +102,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch)=>{
     return{
         saveDeck: (deckName, deck)=>{dispatch(saveDeck(deckName, deck))},
-        getDeck: ()=>{dispatch(getDeck())}
+        getDeck: (deckName)=>{dispatch(getDeck(deckName))}
     }
 }
 

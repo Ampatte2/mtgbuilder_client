@@ -1,11 +1,11 @@
 
-import {GET_CARD, DISPLAY_CARD, IS_LOADED, GET_DECK, ADD_CARD, MY_CARD, AUTH, MODIFY_DECK, ADD_DECK, DB_DECK} from "../actions"
+import {GET_CARD, DISPLAY_CARD, IS_LOADED, LOAD_DECK, ADD_CARD, MY_CARD, AUTH, MODIFY_DECK, ADD_DECK, DB_CARD, DB_DECK, LOGOUT} from "../actions"
 
 const initialState = {isLoaded:true,
                         error:false,
                         auth:false, 
                         cardList:[], 
-                        currentDeck:{name:"Please Select A Deck", decklist:[]}, 
+                        currentDeck:{name:"Please Select A Deck", decklist:[], id:undefined}, 
                         myDecks:[], 
                         myCards:[], 
                         decklists:[]}
@@ -18,12 +18,12 @@ const mtgbuilder = (state=initialState, action)=>{
             return Object.assign({}, state, {cardList: action.cardList})
         case IS_LOADED:
             return Object.assign({}, state, {isLoaded: action.value})
-        case GET_DECK:
+        case LOAD_DECK:
             return Object.assign({}, state, {currentDeck: action.deck})
         case ADD_CARD:
-            return Object.assign({}, state, {currentDeck: {name: state.currentDeck.name, decklist: [...state.currentDeck.decklist, action.card]}})
+            return Object.assign({}, state, {currentDeck: {name: state.currentDeck.name, decklist: [...state.currentDeck.decklist, action.card], id:state.currentDeck.id}})
         case ADD_DECK:
-            return Object.assign({}, state, {myDecks:[...state.myDecks, ...action.deck]})
+            return Object.assign({}, state, {myDecks:[...action.deck]})
         case MODIFY_DECK:
             return Object.assign({}, state, {
                 currentDeck: {name:state.currentDeck.name, decklist:state.currentDeck.decklist.filter((card, index)=>{
@@ -35,14 +35,18 @@ const mtgbuilder = (state=initialState, action)=>{
                     }else{
                         return card
                     }
-                })}
+                }), id:state.currentDeck.id}
             })
         case DB_DECK:
             return Object.assign({}, state, {decklists: [...action.decks]})
         case MY_CARD:
             return Object.assign({}, state, {myCards: [...state.myCards, action.card]})
+        case DB_CARD:
+            return Object.assign({}, state, {myCards: [...action.cards]})
         case AUTH:
             return Object.assign({}, state, {auth: action.value})
+        case LOGOUT:
+            return Object.assign({}, state, initialState)
         default:
             return state
     }

@@ -1,5 +1,6 @@
-import {fetchCard, getLogin, getDeckList, saveToList, addToList, getRegister, getUser, saveCard} from "../../api"
+import {fetchCard, getLogin, getDeckList, saveToList, getDefault, getRegister, getUser, saveCard, deleteCard} from "../../api"
 import Erasure from "../../images/Erasure.jpg"
+import { getDefaultFlags } from "mysql2/lib/connection_config"
 
 export const GET_CARD = "GET_CARD"
 export const DISPLAY_CARD = "DISPLAY_CARD"
@@ -14,6 +15,9 @@ export const ERROR = "ERROR"
 export const AUTH = "AUTH"
 export const ADD_DECK = "ADD_DECK"
 export const DB_DECK = "DB_DECK"
+export const LOAD_DECK = "LOAD_DECK"
+export const LOGOUT = "LOGOUT"
+export const DB_CARD ="DB_CARD"
 
 
 export function addCard(card){
@@ -39,6 +43,10 @@ export function isAuth(value){
     return {type:AUTH, value}
 }
 
+export function logout(){
+    return {type:LOGOUT}
+}
+
 export function myCard(card){
     return {type:MY_CARD, card}
 }
@@ -49,12 +57,32 @@ export function addDeck(deck){
 export function dbDecks(decks){
     return {type:DB_DECK, decks}
 }
+export function dbCard(cards){
+    return {type:DB_CARD, cards};
+}
+
+export function loadDeck(deck){
+    return {type:LOAD_DECK, deck}
+}
 
 export function saveMyCard(card){
     const payload = {card: card, token:localStorage.getItem("token")}
     return function(dispatch){
         dispatch(isLoaded(false));
         return saveCard(payload).then(res=>{
+            dispatch(myCard(card))
+            dispatch(isLoaded(true))
+        })
+    }
+}
+
+export function deleteMyCard(card){
+    const payload = {card: card, token:localStorage.getItem("token")}
+    return function(dispatch){
+        dispatch(isLoaded(false));
+        return deleteCard(payload).then(res=>{
+            
+            dispatch(user(payload.token))
             dispatch(isLoaded(true))
         })
     }
@@ -74,20 +102,24 @@ export function login(value){
         
     }
 }
+
 export function user(token){
     return function(dispatch){
         dispatch(isLoaded(false))
         return getUser(token).then(res=>{
             
+            
             let decks=[];
             let allDecks=[];
+            let myCards=[]
 
             res.data[0].map(item=>{
                 decks.push(JSON.parse(item.decklist))
             })
 
             res.data[1].map(item=>{
-                dispatch(myCard(JSON.parse(item.card)))
+                
+                myCards.push(JSON.parse(item.card))
             })
 
             res.data[2].map(item=>{
@@ -96,9 +128,27 @@ export function user(token){
 
             dispatch(dbDecks(allDecks))
             dispatch(addDeck(decks))
+            dispatch(dbCard(myCards))
             dispatch(isAuth(true))
             dispatch(isLoaded(true))
 
+        })
+    }
+}
+
+export function getData(){
+    return function(dispatch){
+        dispatch(isLoaded(false))
+        return getDefault().then((res)=>{
+
+            let allDecks=[];
+            
+            res.data.map(item=>{
+                allDecks.push(JSON.parse(item.decklist))
+            })
+
+            dispatch(dbDecks(allDecks))
+            dispatch(isLoaded(true))
         })
     }
 }
@@ -133,17 +183,18 @@ export function add(card){
 
 export function saveDeck(deckName, deck){
 
-    const payload = {newDeck: {name:deckName, decklist: deck.decklist}, token:localStorage.getItem("token")}
+    const payload = {newDeck: {name:deckName, decklist: deck.decklist}, token:localStorage.getItem("token"), id: deck.id}
     
     return function(dispatch){
+
         dispatch(isLoaded(false))
-        
+        const token = localStorage.getItem("token")
         return saveToList(payload).then((res)=>{
             
             if(res.data.error){
                 alert("Duplicate Deckname")
             }else{
-                dispatch(addDeck([payload.newDeck]))
+                dispatch(user(token))
                 alert("Decklist Saved")
             }
             
@@ -155,11 +206,16 @@ export function saveDeck(deckName, deck){
     
 }
 
-export function getDeck (query){
+export function getDeck (deck){
     return function(dispatch){
         dispatch(isLoaded(false))
-        return //api call here
-        dispatch(isLoaded(true))
+        return getDeckList({deck}).then((res)=>{
+            
+            dispatch(loadDeck(res.data.result))
+            
+            dispatch(isLoaded(true))
+        })
+        
     }
 }
 

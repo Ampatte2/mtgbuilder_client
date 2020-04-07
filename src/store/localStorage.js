@@ -2,7 +2,14 @@ export const loadState =()=>{
     try{
         const serializedState = localStorage.getItem("state");
         if(serializedState===null){
-            return {isLoading:false, error:false}
+            return {isLoaded:true,
+                error:false,
+                auth:false, 
+                cardList:[], 
+                currentDeck:{name:"Please Select A Deck", decklist:[]}, 
+                myDecks:[], 
+                myCards:[], 
+                decklists:[]}
         }
         //return the saved state
         return JSON.parse(serializedState);

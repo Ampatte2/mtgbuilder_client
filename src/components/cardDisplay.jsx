@@ -8,9 +8,12 @@ export default function CardDisplay(props) {
     return (
         <>
             {Object.keys(dis).length> 0 ? Object.values(dis).map((item, index)=>{
-                        let typeDescription, addButton;
+                        let typeDescription, addButton, deleteButton;
                         if(props.isAuth){
                             addButton = <button onClick={()=>props.addMyCard(item)}>Add Card To Library</button>
+                        }
+                        if(props.deleteCard){
+                            deleteButton = <button onClick={()=>props.deleteCard(item)}>Delete Card From Library</button>
                         }
                         if(item["name"]==="No Cards Found"){
                             return <>
@@ -32,7 +35,7 @@ export default function CardDisplay(props) {
                                     <h3>{item["type"]}</h3>
                                     <h3>{item["text"]}</h3>
                                     {addButton}
-                                    
+                                    {deleteButton}
                                     </>
                         }else{
                             if(item["types"][0]==="Creature"){
@@ -48,7 +51,7 @@ export default function CardDisplay(props) {
                             <h3>{item["type"]}</h3>
                             <h3>{item["text"]}</h3>
                             {addButton}
-                            
+                            {deleteButton}
                             </>
                         }
                     }

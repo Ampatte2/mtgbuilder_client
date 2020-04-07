@@ -2,25 +2,33 @@ import React, { Component } from 'react'
 import {CardDisplay} from "../components";
 import {connect} from "react-redux";
 import {ModalDeck} from "../components/index";
-import {saveDeck} from "../store/actions/index"
+import {saveDeck} from "../store/actions/index";
+import { Redirect } from 'react-router-dom';
+
 
 class viewDeck extends Component {
-    
-    handleClick(name, deck){
-        console.log(name, deck)
-        //this.props.saveDeck(name, deck)
+    constructor(props){
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
     }
+
+
+    handleClick(name, deck){
+        this.props.saveDeck(name, deck)
+    }
+
     render() {
 
         const id = this.props.match.params.id
         const view = this.props.match.params.view
-        console.log(this.props[view][id])
         
         return (
             <div>
-                <CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
-
-                <ModalDeck deck={this.props[view][id]} clone={this.handleClick}></ModalDeck>
+                {this.props[view][id] ? 
+                <><CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
+                <ModalDeck deck={this.props[view][id]} clone={this.handleClick}></ModalDeck></>
+                : <Redirect to="/"/>}
+                
             </div>
         )
     }
@@ -29,7 +37,8 @@ class viewDeck extends Component {
 const mapStateToProps = state =>{
     const {myDecks} = state;
     const {decklists} = state;
-    return {myDecks, decklists}
+    const {auth} = state;
+    return {myDecks, decklists, auth}
 }
 
 export default connect(mapStateToProps, {saveDeck})(viewDeck)
