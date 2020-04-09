@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Styled from "../style/styled";
 
 export default class ModalLogin extends Component {
     constructor(props){
@@ -56,19 +57,19 @@ export default class ModalLogin extends Component {
         return (
             <>
                 <div ref={this.setWrapperRef}>
-                <button onClick={this.showModal}>
+                <Styled.UserButtons onClick={this.showModal}>
                 {this.props.title}
-                </button>
+                </Styled.UserButtons>
                 {this.state.show && 
                     
-                    <form onSubmit={(e)=>this.handleSubmit(e)}>
+                    <Styled.AccountForm onSubmit={(e)=>this.handleSubmit(e)}>
                         {this.props.info.map((item, index)=>{
-                           return <input type={item.type} id={item.name} placeholder={item.name} onChange={(e)=>this.handleChange(e,item.name)}></input>
+                           return <Styled.AccountInput type={item.type} id={item.name} placeholder={item.name} onChange={(e)=>this.handleChange(e,item.name)}></Styled.AccountInput>
                         })}
                         {this.props.error && <div>Incorrect Username or Password</div>}
                         {this.props.passError && <div>Passwords Do Not Match</div>}
-                        {this.props.isLoaded &&<button type="submit">{this.props.title}</button>}
-                    </form>
+                        {this.props.isLoaded &&<Styled.AccountButton type="submit">{this.props.title}</Styled.AccountButton>}
+                    </Styled.AccountForm>
                     
                     }
                 </div>

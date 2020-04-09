@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import React, { Component } from 'react'
 import Loader from "react-loader";
 import {Decklist, CardDisplay} from "../components";
+import Styled from "../style/styled";
 
 
 
@@ -51,8 +52,8 @@ class home extends Component {
     render() {
         
         return (
-        <>
-            <form name="search-form"  onSubmit={e=>this.handleSubmit(e)}>
+        <div>
+            <Styled.SearchForm name="search-form"  onSubmit={e=>this.handleSubmit(e)}>
                 <label htmlFor="name">Name</label>
                 <input name="name" type="text" onChange={e=>this.handleChange(e)}></input>
                 <label htmlFor="cmc" >CMC</label>
@@ -60,7 +61,7 @@ class home extends Component {
                 <label htmlFor="set">Set</label>
                 <input name="set" type="text" onChange={e=>this.handleChange(e)}></input>
                 <button value="submit" type="submit">Get the card</button>
-            </form>
+            </Styled.SearchForm>
 
             <Loader loaded={this.props.isLoaded}/>
             {/* Look at props cardlist being passed down, if empty show alternate text 
@@ -68,8 +69,8 @@ class home extends Component {
             */}
             <CardDisplay cardList={this.props.cardList} addMyCard={this.addMyCard} view={"Search For a Card"} isAuth={this.props.auth}></CardDisplay>
 
-            <Decklist></Decklist>
-        </>
+            
+        </div>
         )
     }
 }

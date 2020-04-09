@@ -3,6 +3,7 @@ import {ModalLogin} from "./index"
 import {connect} from "react-redux";
 import {login, logout, register, isAuth, getData} from "../store/actions";
 import Loader from "react-loader";
+import Styled from "../style/styled";
 
 
 
@@ -46,7 +47,7 @@ class UserLogin extends Component {
             <div>
                 <Loader loaded={this.props.isLoaded}></Loader>
                 {!this.props.auth && 
-                <>
+                <Styled.UserLogin>
                     <ModalLogin 
                     title="Login" 
                     info={[{name:"Email", type:"email"},
@@ -65,9 +66,9 @@ class UserLogin extends Component {
                     passError={this.state.passError}
                     isLoaded={this.props.isLoaded}>
                     </ModalLogin>
-                </>}
+                </Styled.UserLogin>}
 
-                {this.props.auth &&<button onClick={()=>this.logout()}>Logout</button>}
+                {this.props.auth &&<Styled.UserButtons onClick={()=>this.logout()}>Logout</Styled.UserButtons>}
                 
 
             </div>

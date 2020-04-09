@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import cardBack from "../images/cardBack.png"
+import Styled from "../style/styled"
 
 export default class Modal extends Component {
     constructor(props){
@@ -59,8 +60,8 @@ export default class Modal extends Component {
     render() {
         return (
             <>
-                <img src={this.state.img} onError={()=> console.log("there is an error") } alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></img>
-                {this.state.show && <img src={this.state.img} ref={this.setWrapperRef}></img>}
+                <Styled.CardImage src={this.state.img} onError={()=> console.log("there is an error") } alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></Styled.CardImage>
+                {this.state.show && <Styled.CardPopUp src={this.state.img} ref={this.setWrapperRef}></Styled.CardPopUp>}
             </>
         )
     }

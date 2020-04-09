@@ -19,7 +19,7 @@ class account extends Component {
                 <h2>Decks</h2>
                 <DeckDisplay decks={this.props.myDecks} view={"myDecks"}></DeckDisplay>
                 {this.props.myDecks.length===0 && <h3>No Saved Decks</h3>}
-                <Decklist></Decklist>
+                
             </div>
         )
     }

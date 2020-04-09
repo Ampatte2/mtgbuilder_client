@@ -58,7 +58,7 @@ class Decklist extends Component {
     render() {
         
         return (
-            <>
+            <Styled.DecklistDiv>
             <DropDown></DropDown>
             <Styled.Decklist 
             onDragLeave={e=>this.handleDragLeave(e)}
@@ -75,7 +75,7 @@ class Decklist extends Component {
                         </>
             })}</div>        
             </Styled.Decklist>
-            </>
+            </Styled.DecklistDiv>
         )
     }
 }
