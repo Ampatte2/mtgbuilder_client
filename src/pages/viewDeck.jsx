@@ -25,8 +25,10 @@ class viewDeck extends Component {
         return (
             <div>
                 {this.props[view][id] ? 
-                <><CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
-                <ModalDeck deck={this.props[view][id]} clone={this.handleClick}></ModalDeck></>
+                <>
+                <ModalDeck deck={this.props[view][id]} clone={this.handleClick}></ModalDeck>
+                <CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
+                </>
                 : <Redirect to="/"/>}
                 
             </div>

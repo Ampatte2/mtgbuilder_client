@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from "react-redux";
 import {saveDeck} from "../store/actions";
 import { Link } from 'react-router-dom';
+import Styled from "../style/styled"
 
 
 
@@ -12,15 +13,15 @@ class Decklists extends Component {
         let dis = this.props.decklists
 
         return (
-            <div>
+            <Styled.CardDisplay>
                 {dis.length>0 && dis.map((item, index)=>{                    
-                    return <>
-                    <h3 key={index}>{item.name}</h3>
-                    <Link to={"/viewDeck/" + index + "/decklists"}><img src={item.decklist[0].imageUrl}></img></Link>
+                    return <Styled.Deck>
+                    <Styled.CardHeader key={index}>{item.name}</Styled.CardHeader>
+                    <Link to={"/viewDeck/" + index + "/decklists"}><Styled.DeckImage src={item.decklist[0].imageUrl}></Styled.DeckImage></Link>
                     
-                    </>
+                    </Styled.Deck>
                 })}
-            </div>
+            </Styled.CardDisplay>
         )
     }
 }

@@ -170,9 +170,10 @@ export function register(value){
 
             const token = res.data.token
             if(res.data.error){
-                
+                dispatch(isError("User Already Exists"))
             }else{
                 localStorage.setItem("token",res.data.token)
+                dispatch(isError(false))
                 dispatch(user(token))
             }
             

@@ -22,8 +22,8 @@ export default function CardDisplay(props) {
 
                         if(item["name"]==="No Cards Found"){
                             return <Styled.Card>
-                                        <div key={index}>{item["name"]}</div>
-                                        <img src={item.imageUrl} alt={item["name"]}  width="250px" height="250px"/>
+                                        <Styled.CardHeader key={index}>{item["name"]}</Styled.CardHeader >
+                                        
                                     </Styled.Card>
                         }
                         else if(item.imageUrl){

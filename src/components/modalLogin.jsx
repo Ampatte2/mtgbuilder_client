@@ -24,12 +24,14 @@ export default class ModalLogin extends Component {
 
     handleClickOutside(event){
         if(this.wrapperRef && !this.wrapperRef.contains(event.target)){
+            this.props.reset();
             this.setState({show:false})
         }
     }
 
     showModal(){
         if(this.state.show){
+            
             this.setState({show:false})
         }else{
             this.setState({show:true})
@@ -42,9 +44,7 @@ export default class ModalLogin extends Component {
 
     handleSubmit(e){
         e.preventDefault();
-        this.props.fun(this.state)
-        
-       
+        this.props.fun(this.state)       
     }
 
     handleChange(e, section){
@@ -66,8 +66,8 @@ export default class ModalLogin extends Component {
                         {this.props.info.map((item, index)=>{
                            return <Styled.AccountInput type={item.type} id={item.name} placeholder={item.name} onChange={(e)=>this.handleChange(e,item.name)}></Styled.AccountInput>
                         })}
-                        {this.props.error && <div>Incorrect Username or Password</div>}
-                        {this.props.passError && <div>Passwords Do Not Match</div>}
+                        {this.props.error && <Styled.AccountError>{this.props.error}</Styled.AccountError>}
+                        {this.props.passError && <Styled.AccountError>Passwords Do Not Match</Styled.AccountError>}
                         {this.props.isLoaded &&<Styled.AccountButton type="submit">{this.props.title}</Styled.AccountButton>}
                     </Styled.AccountForm>
                     

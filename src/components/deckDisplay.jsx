@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Styled from "../style/styled"
 
 
 export default function DeckDisplay(props) {
@@ -9,15 +10,15 @@ export default function DeckDisplay(props) {
         let dis = props.decks;
         return (
             
-            <div>
+            <Styled.CardDisplay>
             {dis.length>0 && dis.map((item, index)=>{                    
-                    return <>
-                    <h3 key={index}>{item.name}</h3>
-                    <Link to={"/viewDeck/" + index + "/" + props.view}><img src={item.decklist[0].imageUrl} ></img></Link>
+                    return <Styled.Deck>
+                    <Styled.CardHeader key={index}>{item.name}</Styled.CardHeader>
+                    <Link to={"/viewDeck/" + index + "/" + props.view} style={{backgroundColor:"red"}}><Styled.DeckImage src={item.decklist[0].imageUrl}></Styled.DeckImage></Link>
                     
-                    </>
+                    </Styled.Deck>
                 })}
-            </div>
+            </Styled.CardDisplay>
         )
     
 }

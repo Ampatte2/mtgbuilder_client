@@ -77,7 +77,7 @@ class DropDown extends Component {
             <>
 
                 <Styled.DeckSelect>
-                <input type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></input>
+                <Styled.DropInput type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></Styled.DropInput>
                 <button type="button" onClick={event=>this.handleSubmit(event)}>Save</button>
                 </Styled.DeckSelect>
 

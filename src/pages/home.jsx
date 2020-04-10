@@ -12,7 +12,7 @@ import Styled from "../style/styled";
 class home extends Component {
     constructor(props){
         super(props);
-        this.state = {name:"", cmc:"", set:""};
+        this.state = {name:"", cmc:"", set:"", colors:[], type:"", text:""};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -21,6 +21,22 @@ class home extends Component {
         let newState = {};
         newState[event.target.name]=event.target.value;
         this.setState(newState);
+        
+    }
+    handleChangeSelect(event){
+        
+        let color = event.target.name;
+
+        if(this.state.colors.includes(color)){
+            let index = this.state.colors.indexOf(color)
+            let newState = this.state.colors;
+            newState.splice(index,1);
+            this.setState({colors: newState})
+        }else{
+            this.setState({colors: [...this.state.colors, color]})
+        }
+        console.log(this.state.colors)
+        
     }
 
     handleSubmit= (e) =>{
@@ -54,13 +70,37 @@ class home extends Component {
         return (
         <div>
             <Styled.SearchForm name="search-form"  onSubmit={e=>this.handleSubmit(e)}>
-                <label htmlFor="name">Name</label>
-                <input name="name" type="text" onChange={e=>this.handleChange(e)}></input>
-                <label htmlFor="cmc" >CMC</label>
-                <input name="cmc" type="text" onChange={e=>this.handleChange(e)}></input>
-                <label htmlFor="set">Set</label>
-                <input name="set" type="text" onChange={e=>this.handleChange(e)}></input>
-                <button value="submit" type="submit">Get the card</button>
+                <Styled.SearchFormLabel htmlFor="name">Name</Styled.SearchFormLabel>
+                <Styled.SearchFormInput name="name" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
+                <Styled.SearchFormLabel htmlFor="cmc" >CMC</Styled.SearchFormLabel>
+                <Styled.SearchFormInput name="cmc" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
+                <Styled.SearchFormLabel htmlFor="set">Set</Styled.SearchFormLabel>
+                <Styled.SearchFormInput name="set" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
+                
+                <Styled.SearchFormInputCheckboxDiv>
+                    
+                    <Styled.SearchFormInputCheckboxLabel style={{color:"red"}}>Red
+                    <Styled.SearchFormInputCheckbox name="red" type="checkbox" onClick={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
+                    </Styled.SearchFormInputCheckboxLabel>
+                    <Styled.SearchFormInputCheckboxLabel style={{color:"blue"}}>Blue
+                    <Styled.SearchFormInputCheckbox name="blue" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
+                    </Styled.SearchFormInputCheckboxLabel>
+                    <Styled.SearchFormInputCheckboxLabel style={{color:"black"}}>Black
+                    <Styled.SearchFormInputCheckbox name="black" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
+                    </Styled.SearchFormInputCheckboxLabel>
+                    <Styled.SearchFormInputCheckboxLabel style={{color:"green"}}>Green
+                    <Styled.SearchFormInputCheckbox name="green" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
+                    </Styled.SearchFormInputCheckboxLabel>
+                    <Styled.SearchFormInputCheckboxLabel style={{color:"white"}}>White
+                    <Styled.SearchFormInputCheckbox name="white" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
+                    </Styled.SearchFormInputCheckboxLabel>
+                    
+                </Styled.SearchFormInputCheckboxDiv>
+                <Styled.SearchFormLabel htmlFor="type">Type</Styled.SearchFormLabel>
+                <Styled.SearchFormInput name="type" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
+                <Styled.SearchFormLabel htmlFor="text">Text</Styled.SearchFormLabel>
+                <Styled.SearchFormInput name="text" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
+                <Styled.SearchFormButton value="submit" type="submit">Get the card</Styled.SearchFormButton>
             </Styled.SearchForm>
 
             <Loader loaded={this.props.isLoaded}/>

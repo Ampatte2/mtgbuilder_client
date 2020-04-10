@@ -22,10 +22,53 @@ const SearchForm = styled.form`
     position:sticky;
     top:10vh;
     text-align:center;
-    background-color:lightblue;
+    background-color:#2E1E2B;
     width:50vw;
-    padding:5vh 2vw 5vh 2vw;
+    padding:2vh 2vw 2vh 2vw;
     left: 15.5vw;
+    border: solid 2px #7A4419;
+    border-radius: 10px;
+    box-shadow:1px 1px 4px #2b4141;
+`
+
+const SearchFormInput = styled.input`
+    border:none;
+    padding:5px;
+    margin:5px;
+    border: solid 2px #7A4419;
+    border-radius: 2px;
+    &:focus{
+        background-color:#2b4141;
+    }
+`
+const SearchFormInputCheckbox = styled.input`
+    padding:5px;
+`
+const SearchFormInputCheckboxLabel = styled.label`
+    margin:10px;
+`
+const SearchFormInputCheckboxDiv = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    font-size:20px;
+`
+
+const SearchFormLabel = styled.label`
+    padding:5px;
+    color:white;
+`
+
+const SearchFormButton = styled.button`
+    border:none;
+    background-color:#2B4141;
+    padding:5px;
+    color:white;
+    border-radius:2px;
+    &:hover{
+        background-color:#34E4EA;
+        color:black;
+    }
 `
 
 //sidebar decklist items
@@ -37,7 +80,10 @@ const Decklist = styled.div`
     height:100vh;
     width:15vw;
     padding-top:2vh;
-    background-color:lightblue;
+    background-color:#2E1E2B;
+    border: solid 1px #7A4419;
+    border-radius: 2px;
+    box-shadow:1px 1px 4px #2b4141;
 `
 const DeckSelect = styled.div`
     position:sticky;
@@ -45,12 +91,12 @@ const DeckSelect = styled.div`
     right:0;
     height:6vh;
     width:15vw;
-    margin-top:10vh;
+    margin-top:20vh;
     
 `
 const DeckSelectDrop = styled.div`
     position:sticky;
-    top:15vh;
+    top:10vh;
     right:0;
     height:15vh;
     background-color:white;
@@ -58,6 +104,19 @@ const DeckSelectDrop = styled.div`
     z-index:1;
     overflow:scroll;
 `
+
+const DropInput = styled.input`
+    border:none;
+    
+    
+    &:focus{
+        background-color:#2E1E2B;
+    }
+    &:hover{
+        background-color:#2E1E2B;
+    }
+`
+
 const SelectError = styled.div`
     position:sticky;
     top:25vh;
@@ -94,13 +153,16 @@ const Navbar = styled.ul`
     top:0;
     height:5vh;
     width:100vw;
-    background-color:lightblue;
+    background-color:#2E1E2B;
     list-style-type: none;
     margin:0;
     padding:10px;
     display:flex;
     align-items:center;
     margin-bottom:5vh;
+    border-bottom:solid 1px #7A4419;
+    border-top:solid 1px #7A4419;
+    box-shadow:1px 1px 4px #2b4141;
     
 
 
@@ -134,16 +196,28 @@ const AccountForm = styled.form`
     justify-content:space-between;
 `
 const AccountInput = styled.input`
+    border:none;
+    padding:10px;
+    margin-top:2vh;
     &:focus{
-        background-color:lightblue;
+        background-color:#2E1E2B;
     }
 `
 const AccountButton = styled.button`
     border:none;
-    background-color:lightblue;
+    background-color:#2B4141;
+    width:40%;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:2px;
     &:hover{
-        background-color:lightgreen;
+        background-color:#34E4EA;
     }
+`
+
+const AccountError = styled.div`
+    text-align:center;
+    color:#ff4500;
 `
 
 //cardDisplay
@@ -172,8 +246,8 @@ const Card = styled.div`
         background-image:url(${MagicCardBack});
         background-position: center;
         background-size:cover;
-        opacity:0.4;
-        border:solid darkblue 2px;
+        opacity:0.3;
+        border:solid black 2px;
         border-radius:6px;
         
     }
@@ -202,11 +276,12 @@ const CardDescription = styled.div`
     }
     &&::-webkit-scrollbar-thumb{
         background: blue; 
-        border-radius: 5px;
-        height:10px;
+        border-radius: 20px;
+        height:5px;
     }
     &&::-webkit-scrollbar-thumb{
-        background:blue;
+        background:#2E1E2B;
+        border:solid black 1px;
     }
     &&::-webkit-scrollbar-corner{
         background:transparent;
@@ -237,6 +312,32 @@ const CardHeader = styled.h2`
     font-size:1.5em;
     text-shadow: 0.25px 0.25px;
 `
+//deck
+
+const Deck = styled.div`
+    width:20vw;
+    margin:5vh 2vw 5vh 2vw;
+    font-size:1.5vh;
+    height:55vh;
+    text-align:center;
+    background-color:transparent;
+    border:none;
+    padding:5px;
+
+    
+`
+
+const DeckImage = styled.img`
+    width:20vw;
+    border-radius:10px;
+    
+    
+`
+
+//
+
+
+
 
 
 
@@ -255,6 +356,12 @@ const Styled = {
     DecklistDiv,
     MainDiv,
     SearchForm,
+    SearchFormInput,
+    SearchFormButton,
+    SearchFormLabel,
+    SearchFormInputCheckbox,
+    SearchFormInputCheckboxLabel,
+    SearchFormInputCheckboxDiv,
     CardDisplay,
     Card,
     CardImage,
@@ -264,9 +371,13 @@ const Styled = {
     CardInfo,
     CardInfoText,
     CardHeader,
+    Deck,
+    DeckImage,
     AccountForm,
     AccountInput,
-    AccountButton
+    AccountButton,
+    AccountError,
+    DropInput
 }
 
 export default Styled
