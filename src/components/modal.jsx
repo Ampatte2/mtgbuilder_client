@@ -59,10 +59,11 @@ export default class Modal extends Component {
 
     render() {
         return (
-            <>
-                <Styled.CardImage src={this.state.img} onError={()=> console.log("there is an error") } alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></Styled.CardImage>
+            <div>
                 {this.state.show && <Styled.CardPopUp src={this.state.img} ref={this.setWrapperRef}></Styled.CardPopUp>}
-            </>
+                <Styled.CardImage src={this.state.img} onError={()=> console.log("there is an error") } alt={this.props.item["name"]} id={this.props.item["name"]} onClick={this.showModal} draggable="true" onDragStart={e=>this.dragId(e)}></Styled.CardImage>
+                
+            </div>
         )
     }
 }

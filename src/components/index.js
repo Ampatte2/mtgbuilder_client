@@ -7,6 +7,7 @@ import UserLogin from "./userLogin";
 import ModalLogin from "./modalLogin";
 import DeckDisplay from "./deckDisplay";
 import ModalDeck from "./modalDeck";
+import CheckBox from "./checkBox";
 
 export {Navbar,
         Modal, 
@@ -16,4 +17,5 @@ export {Navbar,
         UserLogin, 
         ModalLogin, 
         DeckDisplay, 
-        ModalDeck}
+        ModalDeck,
+        CheckBox}

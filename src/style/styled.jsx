@@ -4,15 +4,15 @@ import Banner from "../images/Banner.jpg"
 import MagicCardBack from "../images/MagicCardBack.jpg"
 
 const AppDiv = styled.div`
-    width:100vw;
+    width:100%;
     display:flex;
 `
 const DecklistDiv = styled.div`
-    width:15vw;
+    width:14%;
 `
 const MainDiv = styled.div`
-    width:85vw;
-    margin-left:1vw;
+    width:84%;
+    
 `
 
 //home
@@ -20,13 +20,13 @@ const MainDiv = styled.div`
 const SearchForm = styled.form`
     z-index:1;
     position:sticky;
-    top:10vh;
+    top:6vh;
     text-align:center;
-    background-color:#2E1E2B;
+    background-color:#F8F8F8;
     width:50vw;
-    padding:2vh 2vw 2vh 2vw;
+    padding:1vh 2vw 1vh 2vw;
     left: 15.5vw;
-    border: solid 2px #7A4419;
+    border: solid 1px #E7E7E7;
     border-radius: 10px;
     box-shadow:1px 1px 4px #2b4141;
 `
@@ -35,34 +35,66 @@ const SearchFormInput = styled.input`
     border:none;
     padding:5px;
     margin:5px;
-    border: solid 2px #7A4419;
+    border: solid 1px #E7E7E7;
     border-radius: 2px;
     &:focus{
         background-color:#2b4141;
     }
 `
-const SearchFormInputCheckbox = styled.input`
-    padding:5px;
+
+const StyledCheckbox = styled.div`
+    display:inline-block;
+    width:16px;
+    height:16px;
+    background:${props => props.checked ? props.color : "white"};
+    border-radius:3px;
+    border:solid black 0.5px;
+    transition: all 150ms;
+    vertical-align:center;
+    
 `
-const SearchFormInputCheckboxLabel = styled.label`
-    margin:10px;
+
+const CheckboxContainer = styled.div`
+    display:flex;
+    flex-direction:row;
+    
+    
+`
+const CheckBoxLabel = styled.div`
+    margin-right:10px;
+    font-size:20px;
+    vertical-align:center;
 `
 const SearchFormInputCheckboxDiv = styled.div`
     display:flex;
     flex-direction:row;
+    height:2vh;
+    padding:1vh 1vw 1vh 1vw;
+    width:30vw;
+    margin:2vh auto 2vh auto;
     justify-content:space-between;
-    font-size:20px;
+    border: solid 2px #E7E7E7;
+    border-radius: 2px;
+
+    font-size:medium;
+`
+const Icon = styled.svg`
+    fill:none;
+    stroke:darkgrey;
+    stroke-width:2px;
+    visibility: ${props=> props.checked ? "visible" : "hidden"}
 `
 
 const SearchFormLabel = styled.label`
     padding:5px;
-    color:white;
+    font-size:20px;
+    color:black;
 `
 
 const SearchFormButton = styled.button`
     border:none;
     background-color:#2B4141;
-    padding:5px;
+    padding:7px;
     color:white;
     border-radius:2px;
     &:hover{
@@ -80,10 +112,17 @@ const Decklist = styled.div`
     height:100vh;
     width:15vw;
     padding-top:2vh;
-    background-color:#2E1E2B;
+    background-color:white;
     border: solid 1px #7A4419;
     border-radius: 2px;
     box-shadow:1px 1px 4px #2b4141;
+    
+`
+
+const DecklistItem = styled.div`
+    background-color:red;
+    width:15vw;
+    display:flex;
 `
 const DeckSelect = styled.div`
     position:sticky;
@@ -105,15 +144,13 @@ const DeckSelectDrop = styled.div`
     overflow:scroll;
 `
 
+
 const DropInput = styled.input`
     border:none;
     
     
-    &:focus{
-        background-color:#2E1E2B;
-    }
-    &:hover{
-        background-color:#2E1E2B;
+    &:focus{DecklistItem
+        background-color:white;
     }
 `
 
@@ -124,7 +161,7 @@ const SelectError = styled.div`
     height:10vh;
     width:15vw;
     z-index:2;
-    color:red;
+    
 `
 const CloneModal = styled.div`
     position:fixed;
@@ -137,7 +174,6 @@ const CloneModal = styled.div`
 
 const BannerDiv = styled.div`
     height:30vh;
-    width:102vw;
     background: url(${Banner});
     background-repeat: no-repeat;
     background-position: center;
@@ -147,22 +183,24 @@ const BannerDiv = styled.div`
 
 
 //Navbar
-const Navbar = styled.ul`
+const Navbar = styled.div`
     position:sticky;
     z-index:9;
-    top:0;
+    top:0; 
     height:5vh;
-    width:100vw;
-    background-color:#2E1E2B;
+    background-color:#F8F8F8;
     list-style-type: none;
-    margin:0;
-    padding:10px;
+    margin:auto;
+    
     display:flex;
+    box-shadow:1px 1px 4px #2b4141;
     align-items:center;
     margin-bottom:5vh;
-    border-bottom:solid 1px #7A4419;
-    border-top:solid 1px #7A4419;
-    box-shadow:1px 1px 4px #2b4141;
+    border-bottom:solid 2px #E7E7E7;
+    border-top:solid 2px #E7E7E7;
+    overflow:hidden;
+    justify-content:space-between;
+    
     
 
 
@@ -171,11 +209,27 @@ const UserButtons = styled.button`
     text-decoration: none;
     border:none;
     background-color:transparent;
+    color:#777;
+    outline: none;
+    font-size:2vh;
+    &:hover{
+        color:#333;
+        cursor:pointer;
+    }
+    &:focus{
+        color:#34E4EA;
+    }
 
 `
 const UserLogin = styled.div`
     display:flex;
+    align-items:center;
+    height:5vh;
+`
+const UserLoginDiv = styled.div`
     
+    height:5vh;
+    margin-right:1vw;
     
 `
 
@@ -200,7 +254,7 @@ const AccountInput = styled.input`
     padding:10px;
     margin-top:2vh;
     &:focus{
-        background-color:#2E1E2B;
+        background-color:white;
     }
 `
 const AccountButton = styled.button`
@@ -254,14 +308,25 @@ const Card = styled.div`
     
 `
 const CardImage = styled.img`
-    width:10vw;
+    width:12vw;
+    height:33vh;
     border-radius:10px;
     margin-left:5px;
     
+    
 `
 const CardButton = styled.button`
-    float:bottom;
+    border:none;
+    background-color:#2B4141;
+    padding:5px;
+    color:white;
+    border-radius:4px;
+    &:hover{
+        background-color:#34E4EA;
+        color:black;
+    }
 `
+
 const CardDescription = styled.div`
     overflow:scroll;
     text-align:left;
@@ -280,7 +345,7 @@ const CardDescription = styled.div`
         height:5px;
     }
     &&::-webkit-scrollbar-thumb{
-        background:#2E1E2B;
+        background:white;
         border:solid black 1px;
     }
     &&::-webkit-scrollbar-corner{
@@ -288,7 +353,7 @@ const CardDescription = styled.div`
     }
 `
 const CardPopUp = styled.img`
-    z-index:5;
+    z-index:10;
     position:fixed;
     width:20vw;
     top:10vh;
@@ -297,6 +362,7 @@ const CardPopUp = styled.img`
 const CardInfo = styled.div`
     display:flex;
     flex-direction:row;
+    
 `
 const CardInfoText= styled.div`
     display:flex;
@@ -305,12 +371,23 @@ const CardInfoText= styled.div`
     text-align:left;
     font-size:1.25em;
     text-shadow: 0.25px 0.25px;
+    width:7.5vw;
     
     
 `
-const CardHeader = styled.h2`
+const CardHeader = styled.div`
     font-size:1.5em;
     text-shadow: 0.25px 0.25px;
+`
+const CardHeader2 = styled.div`
+    font-size:1.25em;
+    text-shadow: 0.25px 0.25px;
+    margin-top:3vh;
+`
+const CardEmpty = styled.div`
+    font-size:2em;
+    margin:auto;
+    margin-top:10vh;
 `
 //deck
 
@@ -333,7 +410,15 @@ const DeckImage = styled.img`
     
     
 `
-
+const DeckHeader = styled.div`
+    width:20vw;
+    background-color:#F8F8F8;
+    font-size:2em;
+    border: solid 2px #E7E7E7;
+    border-radius: 5px;
+    margin-bottom:1vh;
+    color:black;
+`
 //
 
 
@@ -344,6 +429,7 @@ const DeckImage = styled.img`
 
 const Styled = {
     Decklist,
+    DecklistItem,
     DeckSelect,
     DeckSelectDrop,
     SelectError,
@@ -352,6 +438,7 @@ const Styled = {
     Navbar,
     UserButtons,
     UserLogin,
+    UserLoginDiv,
     AppDiv,
     DecklistDiv,
     MainDiv,
@@ -359,8 +446,10 @@ const Styled = {
     SearchFormInput,
     SearchFormButton,
     SearchFormLabel,
-    SearchFormInputCheckbox,
-    SearchFormInputCheckboxLabel,
+    StyledCheckbox,
+    CheckboxContainer,
+    CheckBoxLabel,
+    Icon,
     SearchFormInputCheckboxDiv,
     CardDisplay,
     Card,
@@ -371,8 +460,11 @@ const Styled = {
     CardInfo,
     CardInfoText,
     CardHeader,
+    CardHeader2,
+    CardEmpty,
     Deck,
     DeckImage,
+    DeckHeader,
     AccountForm,
     AccountInput,
     AccountButton,

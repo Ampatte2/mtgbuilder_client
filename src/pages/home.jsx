@@ -4,7 +4,7 @@ import {getCard, saveMyCard} from "../store/actions";
 import {connect} from "react-redux";
 import React, { Component } from 'react'
 import Loader from "react-loader";
-import {Decklist, CardDisplay} from "../components";
+import {Decklist, CardDisplay, CheckBox} from "../components";
 import Styled from "../style/styled";
 
 
@@ -15,6 +15,7 @@ class home extends Component {
         this.state = {name:"", cmc:"", set:"", colors:[], type:"", text:""};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeSelect = this.handleChangeSelect.bind(this)
     }
 
     handleChange(event){
@@ -23,19 +24,20 @@ class home extends Component {
         this.setState(newState);
         
     }
-    handleChangeSelect(event){
+    handleChangeSelect(color){
         
-        let color = event.target.name;
-
+        
+        console.log(this.state.colors)
         if(this.state.colors.includes(color)){
             let index = this.state.colors.indexOf(color)
             let newState = this.state.colors;
             newState.splice(index,1);
             this.setState({colors: newState})
         }else{
-            this.setState({colors: [...this.state.colors, color]})
+            this.setState({colors:[...this.state.colors, color]})
+            
         }
-        console.log(this.state.colors)
+        
         
     }
 
@@ -78,24 +80,13 @@ class home extends Component {
                 <Styled.SearchFormInput name="set" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
                 
                 <Styled.SearchFormInputCheckboxDiv>
-                    
-                    <Styled.SearchFormInputCheckboxLabel style={{color:"red"}}>Red
-                    <Styled.SearchFormInputCheckbox name="red" type="checkbox" onClick={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
-                    </Styled.SearchFormInputCheckboxLabel>
-                    <Styled.SearchFormInputCheckboxLabel style={{color:"blue"}}>Blue
-                    <Styled.SearchFormInputCheckbox name="blue" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
-                    </Styled.SearchFormInputCheckboxLabel>
-                    <Styled.SearchFormInputCheckboxLabel style={{color:"black"}}>Black
-                    <Styled.SearchFormInputCheckbox name="black" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
-                    </Styled.SearchFormInputCheckboxLabel>
-                    <Styled.SearchFormInputCheckboxLabel style={{color:"green"}}>Green
-                    <Styled.SearchFormInputCheckbox name="green" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
-                    </Styled.SearchFormInputCheckboxLabel>
-                    <Styled.SearchFormInputCheckboxLabel style={{color:"white"}}>White
-                    <Styled.SearchFormInputCheckbox name="white" type="checkbox" onChange={e=>this.handleChangeSelect(e)}></Styled.SearchFormInputCheckbox>
-                    </Styled.SearchFormInputCheckboxLabel>
-                    
+                <CheckBox color={"red"} select={this.handleChangeSelect}></CheckBox>                
+                <CheckBox color={"blue"} select={this.handleChangeSelect}></CheckBox>
+                <CheckBox color={"green"} select={this.handleChangeSelect}></CheckBox>
+                <CheckBox color={"black"} select={this.handleChangeSelect}></CheckBox>
+                <CheckBox color={"white"} select={this.handleChangeSelect}></CheckBox>
                 </Styled.SearchFormInputCheckboxDiv>
+                
                 <Styled.SearchFormLabel htmlFor="type">Type</Styled.SearchFormLabel>
                 <Styled.SearchFormInput name="type" type="text" onChange={e=>this.handleChange(e)}></Styled.SearchFormInput>
                 <Styled.SearchFormLabel htmlFor="text">Text</Styled.SearchFormLabel>

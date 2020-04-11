@@ -52,7 +52,7 @@ class UserLogin extends Component {
 
     render() {
         return (
-            <div>
+            <Styled.UserLoginDiv>
                 
                 {!this.props.auth && 
                 <Styled.UserLogin>
@@ -79,10 +79,13 @@ class UserLogin extends Component {
                     </ModalLogin>
                 </Styled.UserLogin>}
 
-                {this.props.auth &&<Styled.UserButtons onClick={()=>this.logout()}>Logout</Styled.UserButtons>}
+                {this.props.auth &&
+                <Styled.UserLogin>
+                    <Styled.UserButtons onClick={()=>this.logout()}>Logout</Styled.UserButtons>
+                </Styled.UserLogin>}
                 
 
-            </div>
+            </Styled.UserLoginDiv>
         )
     }
 }

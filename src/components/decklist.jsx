@@ -67,12 +67,12 @@ class Decklist extends Component {
             
             <div>{this.props.currentDeck.decklist.map((item, index)=>{
                 
-                return <>
+                return <Styled.DecklistItem>
                             <div key={index}>{item.name}</div>
                             <div>{item.quantity}</div>
                             <button onClick={()=>this.handleClick(item, index, 1)}>Add</button>
                             <button onClick={()=>this.handleClick(item, index, -1)}>Sub</button>
-                        </>
+                        </Styled.DecklistItem>
             })}</div>        
             </Styled.Decklist>
             </Styled.DecklistDiv>

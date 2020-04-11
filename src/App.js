@@ -17,6 +17,7 @@ function App() {
       <Styled.BannerDiv></Styled.BannerDiv>
       <Navbar></Navbar>
       <Styled.AppDiv>
+      
       <Styled.MainDiv>
       <Switch>
         <Route path="/" exact component = {home}/>

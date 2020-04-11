@@ -13,8 +13,8 @@ export default function DeckDisplay(props) {
             <Styled.CardDisplay>
             {dis.length>0 && dis.map((item, index)=>{                    
                     return <Styled.Deck>
-                    <Styled.CardHeader key={index}>{item.name}</Styled.CardHeader>
-                    <Link to={"/viewDeck/" + index + "/" + props.view} style={{backgroundColor:"red"}}><Styled.DeckImage src={item.decklist[0].imageUrl}></Styled.DeckImage></Link>
+                    <Styled.DeckHeader key={index}>{item.name}</Styled.DeckHeader>
+                    <Link to={"/viewDeck/" + index + "/" + props.view} ><Styled.DeckImage src={item.decklist[0].imageUrl}></Styled.DeckImage></Link>
                     
                     </Styled.Deck>
                 })}

@@ -18,16 +18,19 @@ class Navbar extends Component {
         }
 
     }
+    
+
     render() {
         
         return (
             <Styled.Navbar>
-                <Styled.UserButtons><Link to="/" style={{ textDecoration: 'none', color:"black",  }}>Search For a Card</Link></Styled.UserButtons>
+                <div style={{marginLeft:"1vw"}}>
+                <Link to="/"><Styled.UserButtons>Card Search</Styled.UserButtons></Link>
                 
-                <Styled.UserButtons><Link to="/decklists" style={{ textDecoration: 'none', color:"black"  }}>Go To Decklists</Link></Styled.UserButtons>
+                <Link to="/decklists"><Styled.UserButtons>Decklists</Styled.UserButtons></Link>
                 
-                {this.props.auth && <Styled.UserButtons><Link to="/account" style={{ textDecoration: 'none', color:"black"}}>Go To Account</Link></Styled.UserButtons>}
-                
+                {this.props.auth && <Link to="/account"><Styled.UserButtons>Account</Styled.UserButtons></Link>}
+                </div>
                 <UserLogin></UserLogin>
             </Styled.Navbar>
         )

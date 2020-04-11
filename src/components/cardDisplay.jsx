@@ -22,7 +22,7 @@ export default function CardDisplay(props) {
 
                         if(item["name"]==="No Cards Found"){
                             return <Styled.Card>
-                                        <Styled.CardHeader key={index}>{item["name"]}</Styled.CardHeader >
+                                        <Styled.CardHeader key={index}>{item["name"]}</Styled.CardHeader>
                                         
                                     </Styled.Card>
                         }
@@ -30,11 +30,11 @@ export default function CardDisplay(props) {
 
                             if(item["types"][0]==="Creature"){
 
-                                typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
+                                typeDescription = <><Styled.CardHeader2>Power {item["power"]}</Styled.CardHeader2><Styled.CardHeader2>Toughness {item["toughness"]}</Styled.CardHeader2></>
                                 
                             }else if (item["types"][0]==="Planeswalker"){
 
-                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
+                                typeDescription = <><Styled.CardHeader2>Loyalty {item["loyalty"]}</Styled.CardHeader2></>
 
                             }
 
@@ -43,9 +43,9 @@ export default function CardDisplay(props) {
                                     <Styled.CardInfo>
                                     <Modal item={item}/>
                                     <Styled.CardInfoText>
-                                    <h3>CMC {item["cmc"]}</h3>
+                                    <Styled.CardHeader2>CMC {item["cmc"]}</Styled.CardHeader2>
                                     {typeDescription}
-                                    <h3>{item["type"]}</h3>
+                                    <Styled.CardHeader2>{item["type"]}</Styled.CardHeader2>
                                     </Styled.CardInfoText>
                                     </Styled.CardInfo>
                                     <Styled.CardDescription>{item["text"]}</Styled.CardDescription>
@@ -56,11 +56,11 @@ export default function CardDisplay(props) {
 
                             if(item["types"][0]==="Creature"){
 
-                                typeDescription = <><h3>Power {item["power"]}</h3><h3>Toughness {item["toughness"]}</h3></>
+                                typeDescription = <><Styled.CardHeader2>Power {item["power"]}</Styled.CardHeader2><Styled.CardHeader2>Toughness {item["toughness"]}</Styled.CardHeader2></>
 
                             }else if (item["types"][0]==="Planeswalker"){
 
-                                typeDescription = <><h3>Loyalty {item["loyalty"]}</h3></>
+                                typeDescription = <><Styled.CardHeader2>Loyalty {item["loyalty"]}</Styled.CardHeader2></>
 
                             }
                             return <Styled.Card>
@@ -69,9 +69,9 @@ export default function CardDisplay(props) {
                             <Styled.CardInfo>
                             <Modal item={item}/>
                             <Styled.CardInfoText>
-                            <h3>CMC {item["cmc"]}</h3>
+                            <Styled.CardHeader2>CMC {item["cmc"]}</Styled.CardHeader2>
                             {typeDescription}
-                            <h3>{item["type"]}</h3>
+                            <Styled.CardHeader2>{item["type"]}</Styled.CardHeader2>
                             </Styled.CardInfoText>
                             </Styled.CardInfo>
                             <Styled.CardDescription>{item["text"]}</Styled.CardDescription>
@@ -81,7 +81,7 @@ export default function CardDisplay(props) {
                         }
                     }
         
-            ): <div>{props.view}</div>}
+            ): <Styled.CardEmpty>{props.view}</Styled.CardEmpty>}
         </Styled.CardDisplay>
     )
 }
