@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {ModalDeck} from "../components/index";
 import {saveDeck} from "../store/actions/index";
 import { Redirect } from 'react-router-dom';
+import Styled from "../style/styled";
 
 
 class viewDeck extends Component {
@@ -21,17 +22,20 @@ class viewDeck extends Component {
 
         const id = this.props.match.params.id
         const view = this.props.match.params.view
-        
+        console.log(this.props[view][id])
         return (
-            <div>
+            <>
                 {this.props[view][id] ? 
                 <>
-                <ModalDeck deck={this.props[view][id]} clone={this.handleClick}></ModalDeck>
+                {this.props.auth &&
+                <ModalDeck deck={this.props[view][id]} isAuth={this.props.auth} clone={this.handleClick}></ModalDeck>
+                }
+                <Styled.AccountHeader>{this.props[view][id].name}</Styled.AccountHeader>
                 <CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
                 </>
                 : <Redirect to="/"/>}
                 
-            </div>
+            </>
         )
     }
 }

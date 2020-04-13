@@ -56,12 +56,12 @@ export default class ModalDeck extends Component {
         return (
             
             <div>
-                    <button onClick={this.showModal}>Clone Deck</button>
+                    <Styled.ModalDeckButton onClick={this.showModal}>Clone Deck</Styled.ModalDeckButton>
                     {this.state.show && 
                         <Styled.CloneModal ref={this.setWrapperRef}> 
-                            <h2>Clone "{this.props.deck.name}"</h2>
-                            <input type="text" value={this.state.cloneName} placeholder="Cloned Deck Name" onChange={(e)=>this.handleChange(e)}></input>
-                            <button onClick={()=>this.handleClick()}>Save</button>
+                            <Styled.CloneModalHeader>Clone "{this.props.deck.name}"</Styled.CloneModalHeader>
+                            <Styled.AccountInput type="text" value={this.state.cloneName} placeholder="Cloned Deck Name" onChange={(e)=>this.handleChange(e)}></Styled.AccountInput>
+                            <Styled.AccountButton onClick={()=>this.handleClick()}>Save</Styled.AccountButton>
                         </Styled.CloneModal>
                     }
                 

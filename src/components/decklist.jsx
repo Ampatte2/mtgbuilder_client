@@ -65,15 +65,20 @@ class Decklist extends Component {
             onDropCapture={e=> this.handleDrop(e)} 
             onDragOver={e=>this.handleDragEnter(e)}>
             
-            <div>{this.props.currentDeck.decklist.map((item, index)=>{
+            <div>
+                
+            {this.props.currentDeck.decklist.length===0 ? <Styled.DecklistItemHeader>Drag and Drop Cards</Styled.DecklistItemHeader>: this.props.currentDeck.decklist.map((item, index)=>{
                 
                 return <Styled.DecklistItem>
-                            <div key={index}>{item.name}</div>
-                            <div>{item.quantity}</div>
-                            <button onClick={()=>this.handleClick(item, index, 1)}>Add</button>
-                            <button onClick={()=>this.handleClick(item, index, -1)}>Sub</button>
+                            <Styled.DecklistItemHeader key={index}>{item.name}</Styled.DecklistItemHeader>
+                            <div style={{marginRight:"1vw"}}>
+                            {item.quantity}
+                            <Styled.UserButtons onClick={()=>this.handleClick(item, index, 1)}>+</Styled.UserButtons>
+                            <Styled.UserButtons onClick={()=>this.handleClick(item, index, -1)}>-</Styled.UserButtons>
+                            </div>
                         </Styled.DecklistItem>
-            })}</div>        
+            })}
+            </div>        
             </Styled.Decklist>
             </Styled.DecklistDiv>
         )

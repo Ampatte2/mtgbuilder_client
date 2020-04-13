@@ -10,7 +10,7 @@ export default function DeckDisplay(props) {
         let dis = props.decks;
         return (
             
-            <Styled.CardDisplay>
+            <Styled.DeckDisplay>
             {dis.length>0 && dis.map((item, index)=>{                    
                     return <Styled.Deck>
                     <Styled.DeckHeader key={index}>{item.name}</Styled.DeckHeader>
@@ -18,7 +18,7 @@ export default function DeckDisplay(props) {
                     
                     </Styled.Deck>
                 })}
-            </Styled.CardDisplay>
+            </Styled.DeckDisplay>
         )
     
 }

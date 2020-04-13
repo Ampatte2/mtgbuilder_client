@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {deleteMyCard} from "../store/actions"
 import {Decklist, CardDisplay, DeckDisplay} from "../components"
 import { Redirect } from 'react-router-dom';
+import Styled from '../style/styled';
 
 class account extends Component {
     
@@ -12,11 +13,11 @@ class account extends Component {
         return (
             <div>
                 {!this.props.auth && <Redirect to="/"/>}
-                <h1>Decks and Cards</h1>
                 
-                <h2>Cards</h2>
+                
+                <Styled.AccountHeader>Cards</Styled.AccountHeader>
                 <CardDisplay cardList={this.props.myCards} view={"No Saved Cards"} deleteCard={this.props.deleteMyCard}></CardDisplay>
-                <h2>Decks</h2>
+                <Styled.AccountHeader>Decks</Styled.AccountHeader>
                 <DeckDisplay decks={this.props.myDecks} view={"myDecks"}></DeckDisplay>
                 {this.props.myDecks.length===0 && <h3>No Saved Decks</h3>}
                 

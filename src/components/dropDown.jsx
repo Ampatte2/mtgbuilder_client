@@ -7,7 +7,7 @@ class DropDown extends Component {
     constructor(props){
         super(props)
         this.state={
-            display:"none",
+            display:"0vh",
             deckName:"",
             selectError:false
         }
@@ -32,10 +32,12 @@ class DropDown extends Component {
     }
 
     showDiv(){
-        if(this.state.display==="none"){
-            this.setState({display:"block"})
+        
+        if(this.state.display=="0vh"){
+            
+            this.setState({display:"15vh"})
         }else{
-            this.setState({display:"none"})
+            this.setState({display:"0vh"})
         }
         
     }
@@ -67,25 +69,30 @@ class DropDown extends Component {
     }
 
     handleClickOutside(event){
+        this.setState({selectError:false})
         if(this.wrapperRef && !this.wrapperRef.contains(event.target)){
-            this.setState({display:"none"})
+            if(this.state.display==="15vh"){
+            this.setState({display:"0vh"})
+            }
         }
     }
 
     render() {
         return (
             <>
-
+                
                 <Styled.DeckSelect>
-                <Styled.DropInput type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></Styled.DropInput>
-                <button type="button" onClick={event=>this.handleSubmit(event)}>Save</button>
-                </Styled.DeckSelect>
-
                 {this.state.selectError && <Styled.SelectError>{this.state.selectError}</Styled.SelectError>}
+                <Styled.DropInput type="text" value={this.state.deckName} onChange={e=>this.handleChange(e)} placeholder={this.props.currentDeck.name} onClick={()=>this.showDiv()}></Styled.DropInput>
+                <Styled.DropButton type="button" onClick={event=>this.handleSubmit(event)}>Save</Styled.DropButton>
+                
+                </Styled.DeckSelect>
+                
+                
 
-                <Styled.DeckSelectDrop style={{display:this.state.display}} ref={this.setWrapperRef}>
+                <Styled.DeckSelectDrop height={this.state.display} ref={this.setWrapperRef}>
                 {this.props.myDecks.map((item, index)=>{
-                    return <p onClick={()=>this.handleClick(item)} key={index}>{item.name}</p>
+                    return <Styled.DeckSelectItem height={this.state.display} onClick={()=>this.handleClick(item)} key={index}>{item.name}</Styled.DeckSelectItem>
                 })}
                 </Styled.DeckSelectDrop>
 

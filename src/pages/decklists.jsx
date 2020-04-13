@@ -13,15 +13,15 @@ class Decklists extends Component {
         let dis = this.props.decklists
 
         return (
-            <Styled.CardDisplay>
+            <Styled.DeckDisplay>
                 {dis.length>0 && dis.map((item, index)=>{                    
                     return <Styled.Deck>
-                    <Styled.CardHeader key={index}>{item.name}</Styled.CardHeader>
+                    <Styled.DeckHeader key={index}>{item.name}</Styled.DeckHeader>
                     <Link to={"/viewDeck/" + index + "/decklists"}><Styled.DeckImage src={item.decklist[0].imageUrl}></Styled.DeckImage></Link>
                     
                     </Styled.Deck>
                 })}
-            </Styled.CardDisplay>
+            </Styled.DeckDisplay>
         )
     }
 }
