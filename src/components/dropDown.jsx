@@ -91,9 +91,9 @@ class DropDown extends Component {
                 
 
                 <Styled.DeckSelectDrop height={this.state.display} ref={this.setWrapperRef}>
-                {this.props.myDecks.map((item, index)=>{
+                {this.props.myDecks.length>0 ? this.props.myDecks.map((item, index)=>{
                     return <Styled.DeckSelectItem height={this.state.display} onClick={()=>this.handleClick(item)} key={index}>{item.name}</Styled.DeckSelectItem>
-                })}
+                }): <Styled.DeckSelectItem height={this.state.display}>No Saved Decks</Styled.DeckSelectItem>}
                 </Styled.DeckSelectDrop>
 
             </>

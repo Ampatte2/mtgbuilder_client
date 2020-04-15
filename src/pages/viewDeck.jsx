@@ -27,10 +27,11 @@ class viewDeck extends Component {
             <>
                 {this.props[view][id] ? 
                 <>
+                
+                <Styled.AccountHeader>{this.props[view][id].name}</Styled.AccountHeader>
                 {this.props.auth &&
                 <ModalDeck deck={this.props[view][id]} isAuth={this.props.auth} clone={this.handleClick}></ModalDeck>
                 }
-                <Styled.AccountHeader>{this.props[view][id].name}</Styled.AccountHeader>
                 <CardDisplay cardList={this.props[view][id].decklist}></CardDisplay>
                 </>
                 : <Redirect to="/"/>}

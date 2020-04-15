@@ -6,13 +6,37 @@ import MagicCardBack from "../images/MagicCardBack.jpg"
 const AppDiv = styled.div`
     width:100%;
     display:flex;
+    height:100%;
 `
 const DecklistDiv = styled.div`
     width:14%;
+    position:sticky;
+    height:70%;
+    top:0vh;
+    @media ${device.laptop}{
+        width:29vw;
+        
+        right:0;
+        top:17vh;
+    }
+    @media ${device.mobileL}{
+        margin-left:5vw;
+        height:50vh;
+        width:44vw;
+        margin-top:12vh;
+        top:12vh;
+    }
+    
     
 `
 const MainDiv = styled.div`
     width:84%;
+    @media ${device.laptop}{
+        width:69vw;
+    }
+    @media ${device.mobileL}{
+        width:54vw;
+    }
     
 `
 
@@ -30,6 +54,18 @@ const SearchForm = styled.form`
     border: solid 1px #E7E7E7;
     border-radius: 10px;
     box-shadow:1px 1px 4px #2b4141;
+
+    @media ${device.laptop}{
+        width:65vw;
+        left:2vw;
+        padding:0.5vh 0 0.5vh 0;
+    }
+    @media ${device.mobileL}{
+       
+        width:100vw;
+        padding:0;
+    }
+    
 `
 
 const SearchFormInput = styled.input`
@@ -42,6 +78,16 @@ const SearchFormInput = styled.input`
     &:focus{
         background-color:#34E4EA;
     }
+    @media ${device.laptop}{
+        font-size:1vh;
+        width:12vw;
+    }
+    @media ${device.mobileL}{
+        font-size:1vh;
+        width:17vw;
+    }
+    
+    
 `
 
 const StyledCheckbox = styled.div`
@@ -54,19 +100,26 @@ const StyledCheckbox = styled.div`
     transition: all 150ms;
     vertical-align:center;
     cursor:pointer;
+    @media ${device.mobileL}{
+        width:13px;
+        height:13px;
+    }
+    
     
 `
 
 const CheckboxContainer = styled.div`
     display:flex;
     flex-direction:row;
-    
-    
+   
 `
 const CheckBoxLabel = styled.div`
     margin-right:10px;
-    font-size:20px;
-    vertical-align:center;
+    font-size:2vh;
+    @media ${device.laptop}{
+        font-size:1.5vh;
+    }
+    
 `
 const SearchFormInputCheckboxDiv = styled.div`
     display:flex;
@@ -79,25 +132,40 @@ const SearchFormInputCheckboxDiv = styled.div`
     border: solid 2px #E7E7E7;
     border-radius: 2px;
 
-    font-size:medium;
+    font-size:2vh;
+    @media ${device.laptop}{
+        width:50vw;
+    }
+    @media ${device.mobileL}{
+        font-size:1vh;
+        width:70vw;
+    }
 `
 const Icon = styled.svg`
+    @media ${device.laptop}{
+        visibility:hidden;
+    }
     fill:none;
     stroke:darkgrey;
     stroke-width:2px;
     visibility: ${props=> props.checked ? "visible" : "hidden"}
+    
 `
 
 const SearchFormLabel = styled.label`
     padding:5px;
-    font-size:20px;
+    font-size:2vh;
     color:black;
+    @media ${device.laptop}{
+        font-size:1.5vh;
+    }
 `
 
 const SearchFormButton = styled.button`
     border:none;
     background-color:#2B4141;
     padding:7px;
+    font-size: 2vh;
     color:white;
     border-radius:2px;
     cursor:pointer;
@@ -105,21 +173,37 @@ const SearchFormButton = styled.button`
         background-color:#34E4EA;
         color:black;
     }
+    @media ${device.laptop}{
+        font-size:1.25vh;
+        padding:5px;
+    }
 `
+
 
 //sidebar decklist items
 
 const Decklist = styled.div`
     position: sticky;
-    top:15vh;
+    top:0vh;
     right:0;
     height:70vh;
     width:15vw;
     padding-top:2vh;
-    background-color:white;
     border: solid 1px #E7E7E7;
     border-radius: 2px;
     box-shadow:1px 1px 4px #2b4141;
+    @media ${device.laptop}{
+        font-size:1.5vh;
+        width:29vw;
+        position:relative;
+        right:0;
+    }
+    @media ${device.mobileL}{
+        
+        font-size:1vh;
+        height:50vh;
+        width:39vw;
+    }
     
     
 `
@@ -129,16 +213,35 @@ const DecklistItem = styled.div`
     width:15vw;
     display:flex;
     margin-bottom:10px;
+    @media ${device.laptop}{
+        
+        width:29vw;
+    }
+    @media ${device.mobileL}{
+        
+        width:40vw;
+    }
 
 `
 const DeckSelect = styled.div`
     position:sticky;
-    top:10vh;
+    top:0vh;
     right:0;
+    z-index:99;
     height:5vh;
-    
     width:15vw;
-    margin-top:20vh;
+    margin-top:10vh;
+    @media ${device.laptop}{
+        top:0vh;
+        width:29vw;
+        position:relative;
+        right:0;
+    }
+    @media ${device.mobileL}{
+        position:relative;
+        right:0;
+        width:40vw;
+    }
     
 `
 const DeckSelectDrop = styled.div`
@@ -169,6 +272,17 @@ const DeckSelectDrop = styled.div`
     &&::-webkit-scrollbar-corner{
         background:transparent;
     }
+    @media ${device.laptop}{
+        position:relative;
+        right:0;
+        top:0;
+        width:29vw;
+    }
+    @media ${device.mobileL}{
+        
+        width:39vw;
+    }
+    
 `
 const DeckSelectItem = styled.div`
     font-size:2vh;
@@ -180,13 +294,19 @@ const DeckSelectItem = styled.div`
     &:hover{
         color:#34E4EA
     }
+
+    @media ${device.laptop}{
+        
+        font-size:1.5vh;
+    }
+    
 `
 
 const DropButton = styled.button`
     border:none;
     background-color:#2B4141;
     font-size:2vh;
-    height:3vh;
+    height:3.5vh;
     width:4vw;
     color:white;
     border-radius:4px;
@@ -195,6 +315,15 @@ const DropButton = styled.button`
         background-color:#34E4EA;
         color:black;
     }
+    @media ${device.laptop}{
+        font-size:1.5vh;
+        width:8vw;
+    }
+    @media ${device.mobileL}{
+        
+        
+        width:12vw;
+    }
 `
 
 const DropInput = styled.input`
@@ -202,8 +331,31 @@ const DropInput = styled.input`
     width:10vw;
     height:3vh;
     font-size:2vh;
-    &:focus{DecklistItem
+    &:focus{
         background-color:white;
+    }
+
+    &::placeholder{
+        font-size:2.0vh;
+        text-align:center;
+        @media ${device.laptop}{
+            font-size:1.5vh;
+            width:15vw;
+        }
+        @media ${device.laptop}{
+            font-size:1.25vh;
+            
+        }
+    }
+    @media ${device.laptop}{
+        font-size:1.5vh;
+        
+        width:20vw;
+    }
+    @media ${device.mobileL}{
+        
+        
+        width:25vw;
     }
 `
 
@@ -228,6 +380,10 @@ const CloneModal = styled.div`
     border-radius: 5px;
     flex-direction:column;
     justify-content:space-between;
+    @media ${device.laptop}{
+        left:30vw;
+        width:40vw;
+    }
 `
 
 const CloneModalHeader = styled.div`
@@ -237,16 +393,16 @@ const CloneModalHeader = styled.div`
 `
 
 const ModalDeckButton = styled.button`
-    position:fixed;
-    top:45vh;
-    z-index:99;
     
+    
+    z-index:99;
     border:none;
     background-color:#2B4141;
     font-size:2vh;
-    margin-left:0.5vw;
-    width:5vw;
-    height:10vh;
+    margin-left:34vw;
+    margin-top:1vh;
+    width:15vw;
+    height:5vh;
     color:white;
     border-radius:4px;
     cursor:pointer;
@@ -254,6 +410,13 @@ const ModalDeckButton = styled.button`
         background-color:#34E4EA;
         color:black;
     }
+    @media ${device.laptop}{
+        margin-left:27vw;
+    }
+    @media ${device.mobileL}{
+        margin-left:3vw;
+    }
+    
 
 `
 //Banner
@@ -265,6 +428,12 @@ const BannerDiv = styled.div`
     background-position: center;
     background-size:cover;
     overflow:hidden;
+    @media ${device.laptop}{
+        height:20vh;
+    }
+    @media ${device.mobileL}{
+        height:15vh;
+    }
 `
 
 
@@ -316,7 +485,8 @@ const UserLogin = styled.div`
 const UserLoginDiv = styled.div`
     
     height:5vh;
-    margin-right:1vw;
+    margin-right:2vw;
+    
     
 `
 
@@ -335,6 +505,10 @@ const AccountForm = styled.form`
     border-radius: 5px;
     flex-direction:column;
     justify-content:space-between;
+    @media ${device.laptop}{
+        left:20vw;
+        width:60vw;
+    }
 `
 const AccountInput = styled.input`
     border:none;
@@ -390,23 +564,46 @@ const CardDisplay = styled.div`
     flex-wrap:wrap;
     margin-left:2vw;
     margin-top:2vh;
+    @media ${device.laptop}{
+        width: 80vw;
+    }
+    @media ${device.mobileL}{
+        
+        width:54vw;
+    }
 `
 const Card = styled.div`
-    width:20vw;
-    margin:1vh 0vw 1vh 4vw;
+    width:18vw;
+    margin:1vh 0vw 1vh 1vw;
     font-size:1.5vh;
     height:55vh;
     text-align:center;
     
     padding:5px;
-    
+    @media ${device.laptop}{
+        height:30vh;
+        width:30vw;
+        margin:1vh 0vw 1vh 0vw;
+    }
+    @media ${device.mobileL}{
+        height:35vh;
+        width:50vw;
+    }
     &:before{
         content:"";
         display:block;
         position:absolute;
         z-index:-1;
-        width:22vw;
+        width:18vw;
         height:55vh;
+        @media ${device.laptop}{
+            height:30vh;
+            width:30vw;
+        }
+        @media ${device.mobileL}{
+            height:35vh;
+            width:50vw;
+        }
         background-image:url(${MagicCardBack});
         background-position: center;
         background-size:cover;
@@ -416,13 +613,21 @@ const Card = styled.div`
         
     }
     
+    
 `
 const CardImage = styled.img`
-    width:12vw;
-    height:33vh;
+    width:9vw;
+    height:25vh;
     border-radius:10px;
     margin-left:5px;
-    
+    @media ${device.laptop}{
+        width:15vw;
+        height:15vh;
+    }
+    @media ${device.mobileL}{
+        width:25vw;
+        height:18vh;
+    }
     
 `
 const CardButton = styled.button`
@@ -437,13 +642,16 @@ const CardButton = styled.button`
         background-color:#34E4EA;
         color:black;
     }
+    @media ${device.laptop}{
+        font-size:1vh;
+    }
 `
 
 const CardDescription = styled.div`
     overflow:scroll;
     text-align:left;
-    height:12vh;
-    width:22vw;
+    height:20vh;
+    width:17vw;
     margin-top:1vh;
     margin-left:5px;
     font-size:2vh;
@@ -463,13 +671,31 @@ const CardDescription = styled.div`
     &&::-webkit-scrollbar-corner{
         background:transparent;
     }
+    @media ${device.laptop}{
+        font-size:1.10vh;
+        width:29vw;
+        height:7vh;
+    }
+    @media ${device.mobileL}{
+        width:49vw;
+        height:9vh;
+    }
+
+    
 `
 const CardPopUp = styled.img`
     z-index:10;
     position:fixed;
     width:20vw;
-    top:10vh;
-    left:30vw;
+    top:20vh;
+    left:40vw;
+    border-radius:10px;
+    @media ${device.laptop}{
+        font-size:1.10vh;
+        width:40vw;
+        left:30vw;
+        
+    }
 `
 const CardInfo = styled.div`
     display:flex;
@@ -481,40 +707,79 @@ const CardInfoText= styled.div`
     flex-direction:column;
     margin-left:1vw;
     text-align:left;
-    font-size:1.25em;
+    font-size:1.5vh;
     text-shadow: 0.25px 0.25px;
-    width:7.5vw;
+    width:10vw;
+    @media ${device.laptop}{
+        font-size:0.5vh;
+        
+    }
+    
     
     
 `
 const CardHeader = styled.div`
-    font-size:3vh;
+    font-size:2.5vh;
     margin-top:1vh;
     margin-bottom:1vh;
     margin-left:2vw;
     text-shadow: 0.25px 0.25px;
+    
+    height:3.0vh;
+    overflow:hidden;
+    @media ${device.laptop}{
+        font-size:1.5vh;
+        margin-bottom:0;
+    }
 `
 const CardHeader2 = styled.div`
-    font-size:1.25em;
+    font-size:2vh;
     text-shadow: 0.25px 0.25px;
     margin-top:3vh;
+    @media ${device.laptop}{
+        margin-top:1vh;
+        font-size:1.5vh;
+    }
+    @media ${device.mobileL}{
+        font-size:1.25vh;
+        
+    }
+    
 `
 const CardEmpty = styled.div`
     font-size:5vh;
     margin:auto;
     margin-top:10vh;
+    margin-left:30vw;
+    @media ${device.laptop}{
+        margin-top:3vh;
+        font-size:3vh;
+        margin-left:15vw;
+    }
+    @media ${device.mobileL}{
+        margin-top:3vh;
+        font-size:2vh;
+        margin-left:10vw;
+    }
 `
 //deck
 
 const Deck = styled.div`
-    width:20vw;
-    margin:0vh 2vw 15vh 2vw;
+    width:12vw;
+    margin:0vh 2vw 0vh 2vw;
     font-size:1.5vh;
     height:55vh;
     text-align:center;
     background-color:transparent;
     border:none;
-    
+    @media ${device.laptop}{
+        height:30vh;
+        width:30vw;
+    }
+    @media ${device.mobileL}{
+        height:30vh;
+        width:50vw;
+    }
     
     
 `
@@ -524,30 +789,75 @@ const DeckImage = styled.img`
     border-radius:10px;
     margin-bottom:1vh;
     margin-top:2vh;
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+    &:hover{
+        -webkit-transform: scale(1.1);
+	    transform: scale(1.1);
+    }
+    @media ${device.laptop}{
+        width:20vw;
+    }
+    @media ${device.mobileL}{
+        margin-top:1vh;
+        width:30vw;
+    }
     
 `
 const DeckHeader = styled.div`
     width:15vw;
     background-color:#F8F8F8;
-    font-size:2em;
-    border: solid 1px #bfbfbf;
+    font-size:2vh;
+    border: solid 2px #bfbfbf;
     border-radius: 5px;
+    padding-top:5px;
+    padding-bottom:5px;
     margin:auto;
     color:black;
+    text-shadow: 0.1px 0.1px;
+    @media ${device.laptop}{
+        font-size:1.0vh;
+        width:20vw;
+    }
+    @media ${device.mobileL}{
+        font-size:1.5vh;
+        width:30vw;
+    }
 `
 
 const DecklistItemHeader = styled.div`
     font-size:2vh;
     margin-left:1vw;
+    overflow:hidden;
+    height:2.5vh;
+    width:10vw;
+    @media ${device.laptop}{
+        font-size:1.5vh;
+        width:20vw;
+        height:2vh;
+    }
+    @media ${device.laptop}{
+        width:25vw;
+        font-size:1.25vh;
+        height:1.5vh;
+    }
 
 `
 
 const DeckDisplay = styled.div`
     display:flex;
-    width:90vw;
+    width:84vw;
     flex-wrap:wrap;
-    margin-left:2vw;
+    
     margin-top:2vh;
+    @media ${device.laptop}{
+        width:69vw;
+    }
+    @media ${device.mobileL}{
+        width:54vw;
+    }
 `
 
 //

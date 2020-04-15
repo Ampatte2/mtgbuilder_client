@@ -60,6 +60,7 @@ class Decklist extends Component {
         return (
             <Styled.DecklistDiv>
             <DropDown></DropDown>
+            
             <Styled.Decklist 
             onDragLeave={e=>this.handleDragLeave(e)}
             onDropCapture={e=> this.handleDrop(e)} 
