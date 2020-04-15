@@ -67,7 +67,7 @@ export default class ModalLogin extends Component {
                            return <Styled.AccountInput type={item.type} id={item.name} placeholder={item.name} onChange={(e)=>this.handleChange(e,item.name)}></Styled.AccountInput>
                         })}
                         {this.props.error && <Styled.AccountError>{this.props.error}</Styled.AccountError>}
-                        {this.props.passError && <Styled.AccountError>Passwords Do Not Match</Styled.AccountError>}
+                        {this.props.passError && <Styled.AccountError>{this.props.passError}</Styled.AccountError>}
                         {this.props.isLoaded &&<Styled.AccountButton type="submit">{this.props.title}</Styled.AccountButton>}
                     </Styled.AccountForm>
                     

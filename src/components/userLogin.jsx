@@ -23,11 +23,13 @@ class UserLogin extends Component {
 
     register(submit){
             this.setState({passError:false})
-            if(submit["Password"]===submit["Repeat Password"] && submit["Email"] && submit["Password"] ){
+            if(submit["Password"]===submit["Repeat Password"] && submit["Email"] && submit["Password"] && submit["Password"].length>6 ){
                 this.props.register(submit);
+            }else if (submit["Password"].length<7){
+                this.setState({passError:"Password Must Be Longer Than 6 Characters"})
             }else{
                 //error message for password without api call
-                this.setState({passError:true});
+                this.setState({passError:"Passwords Do Not Match"});
         }
     }
     
